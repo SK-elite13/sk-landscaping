@@ -1,50 +1,35 @@
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { ReactLenis } from "lenis/react";
-import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/context/AuthContext";
-import { LeadDialogProvider } from "@/context/LeadDialogContext";
-import { LeadDialog } from "@/components/LeadDialog";
-import { PublicLayout } from "@/components/PublicLayout";
-import Home from "@/pages/Home";
-import ServicesPage from "@/pages/ServicesPage";
-import ProjectsPage from "@/pages/ProjectsPage";
-import AboutPage from "@/pages/AboutPage";
-import ContactPage from "@/pages/ContactPage";
-import AdminLogin from "@/pages/AdminLogin";
-import AdminDashboard from "@/pages/AdminDashboard";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { LeadDialogProvider } from "./context/LeadDialogContext";
+import { PublicLayout } from "./components/PublicLayout";
+import { LeadDialog } from "./components/LeadDialog";
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
-  return null;
-};
+import Home from "./pages/Home";
+import ServicesPage from "./pages/ServicesPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import AdminLogin from "./pages/AdminLogin";
 
-const Public = ({ children }) => <PublicLayout>{children}</PublicLayout>;
-
-function App() {
+export default function App() {
   return (
-    <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }}>
-      <AuthProvider>
-        <BrowserRouter>
-          <LeadDialogProvider>
-            <ScrollToTop />
+    <AuthProvider>
+      <LeadDialogProvider>
+        <Router>
+          <PublicLayout>
             <Routes>
-              <Route path="/" element={<Public><Home /></Public>} />
-              <Route path="/services" element={<Public><ServicesPage /></Public>} />
-              <Route path="/projects" element={<Public><ProjectsPage /></Public>} />
-              <Route path="/about" element={<Public><AboutPage /></Public>} />
-              <Route path="/contact" element={<Public><ContactPage /></Public>} />
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
-            <LeadDialog />
-          </LeadDialogProvider>
-        </BrowserRouter>
-      </AuthProvider>
-      <Toaster position="top-center" richColors />
-    </ReactLenis>
+          </PublicLayout>
+          <LeadDialog />
+        </Router>
+      </LeadDialogProvider>
+    </AuthProvider>
   );
 }
-
-export default App;
