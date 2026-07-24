@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Star, PhoneCall, ShieldCheck, Plant, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Star, PhoneCall, ShieldCheck, Sprout, Sparkles } from "lucide-react";
 import { SERVICES, PROJECTS, TESTIMONIALS, FAQS } from "../mockData";
 import { CONTACT, waLink } from "../lib/api";
 
@@ -52,7 +52,7 @@ export default function Home() {
               <div key={srv.id} className="p-8 rounded-2xl bg-[#FAF9F6] border border-gray-100 hover:shadow-xl transition-shadow flex flex-col justify-between">
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-[#C8E6C9] text-[#2E7D32] flex items-center justify-center mb-6">
-                    <Plant className="w-6 h-6" />
+                    <Sprout className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold mb-2">{srv.title}</h3>
                   <p className="text-gray-600 text-sm mb-6">{srv.tagline}</p>
