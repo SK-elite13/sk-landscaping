@@ -20,3 +20,8 @@ export const CONTACT = {
 
 export const waLink = (msg = "Hi SK Landscaping, I'd like to know more about your services.") =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+export const submitLead = async (formData) => {
+  const response = await api.post('/leads', formData);
+  return response.data;
+};
