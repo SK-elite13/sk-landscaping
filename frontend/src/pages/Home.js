@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import { Phone, ArrowRight, ArrowUpRight, WhatsappLogo, Quotes } from "@phosphor-icons/react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 import { Reveal } from "../components/Reveal";
 import { Icon } from "../components/Icon";
 import { SERVICES, WHY, PROCESS, FAQS } from "../data/content";
@@ -328,7 +327,6 @@ export default function Home() {
       <Projects />
       <Testimonials />
       <About />
-      <FaqSection />
       <CTA />
     </>
   );
