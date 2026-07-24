@@ -1,0 +1,63 @@
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=manrope@400,500,600,700,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 40 33% 98%;
+  --foreground: 0 0% 4%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 4%;
+  --primary: 123 44% 34%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 122 39% 49%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 40 20% 95%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 122 39% 85%;
+  --accent-foreground: 123 44% 20%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 123 44% 34%;
+  --radius: 0.75rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background-color: #FAF9F6;
+  color: #0A0A0A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cabinet Grotesk', sans-serif;
+}
+
+::selection {
+  background: #2E7D32;
+  color: #fff;
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #EFEEE9; }
+::-webkit-scrollbar-thumb { background: #2E7D32; border-radius: 10px; }
