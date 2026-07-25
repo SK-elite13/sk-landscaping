@@ -1,62 +1,119 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
-import { CONTACT, waLink } from "../lib/api";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Phone, List, X } from "@phosphor-icons/react";
+import { CONTACT } from "../lib/api";
+import { useLeadDialog } from "../context/LeadDialogContext";
 
-export default function Navbar() {
-  const [open, setOpen] = useState(false);
+export const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const { openDialog } = useLeadDialog();
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Projects", path: "/projects" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-black text-[#2E7D32] tracking-tight">
-          SK <span className="text-[#0A0A0A] font-normal">Landscaping</span>
+    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-black/5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-forest font-heading font-black text-white">
+            SK
+          </div>
+          <div className="flex flex-col">
+            <span className="font-heading text-lg font-black tracking-tight text-ink leading-tight">
+              SK Landscaping
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          <Link to="/" className="hover:text-[#2E7D32] transition-colors">Home</Link>
-          <Link to="/services" className="hover:text-[#2E7D32] transition-colors">Services</Link>
-          {/* <Link to="/projects" className="hover:text-[#2E7D32] transition-colors">Projects</Link> */}
-          <Link to="/about" className="hover:text-[#2E7D32] transition-colors">About</Link>
-          <Link to="/contact" className="hover:text-[#2E7D32] transition-colors">Contact</Link>
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                className={`transition-colors hover:text-forest ${
+                  isActive ? "font-bold text-forest" : "text-ink/70"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </nav>
 
+        {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2.5 bg-[#2E7D32] text-white rounded-xl text-sm font-semibold hover:bg-[#1B5E20] transition-colors"
+            href={`tel:${CONTACT.phoneRaw}`}
+            className="flex items-center gap-2 text-xs font-bold text-forest hover:underline"
           >
-            Get Quote
+            <Phone size={16} weight="fill" />
+            <span>{CONTACT.phone}</span>
           </a>
+          <button
+            onClick={() => openDialog()}
+            className="rounded-full bg-forest px-5 py-2.5 text-xs font-bold text-white transition-transform duration-200 hover:scale-105"
+          >
+            Get Free Quote
+          </button>
         </div>
 
-        {/* Mobile menu button */}
-        <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-gray-700">
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="rounded-lg p-2 text-ink md:hidden"
+          aria-label="Toggle Menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
         </button>
       </div>
 
-      {/* Mobile Navigation Dropdown */}
-      {open && (
-        <div className="md:hidden bg-white border-b border-gray-100 px-4 pt-2 pb-6 space-y-3 font-medium">
-          <Link to="/" onClick={() => setOpen(false)} className="block py-2">Home</Link>
-          <Link to="/services" onClick={() => setOpen(false)} className="block py-2">Services</Link>
-          {/* <Link to="/projects" onClick={() => setOpen(false)} className="block py-2">Projects</Link> */}
-          <Link to="/about" onClick={() => setOpen(false)} className="block py-2">About</Link>
-          <Link to="/contact" onClick={() => setOpen(false)} className="block py-2">Contact</Link>
-          <a
-            href={waLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-center py-3 bg-[#2E7D32] text-white font-semibold rounded-xl mt-4"
-          >
-            Get Quote
-          </a>
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="border-t border-black/5 bg-cream px-5 py-6 md:hidden">
+          <div className="flex flex-col gap-4 text-base font-medium">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-ink/80 hover:text-forest ${
+                  location.pathname === link.path ? "font-bold text-forest" : ""
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-black/10 flex flex-col gap-3">
+              <a
+                href={`tel:${CONTACT.phoneRaw}`}
+                className="flex items-center gap-2 text-sm font-bold text-forest"
+              >
+                <Phone size={18} weight="fill" />
+                <span>{CONTACT.phone}</span>
+              </a>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openDialog();
+                }}
+                className="w-full rounded-full bg-forest py-3 text-sm font-bold text-white"
+              >
+                Get Free Quote
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </header>
   );
-}
+};
