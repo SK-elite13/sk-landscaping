@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Phone, List, X } from "@phosphor-icons/react";
-import { CONTACT } from "../lib/api";
+import { motion, AnimatePresence } from "framer-motion";
+import { List, X, PhoneCall } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
+import { CONTACT } from "../lib/api";
 
 export const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [open, setOpen] = useState(false);
   const { openDialog } = useLeadDialog();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setScrolled(currentScrollPos > 20);
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 50);
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
+  useEffect(() => { setOpen(false); }, [location]);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -18,102 +35,93 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-black/5">
+    <motion.header
+      initial={{ y: 0 }}
+      animate={{ y: visible ? 0 : -100 }}
+      transition={{ duration: 0.3 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        scrolled ? "bg-black/80 backdrop-blur-md border-b border-white/10" : "bg-gradient-to-b from-black/60 to-transparent"
+      }`}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-forest font-heading font-black text-white">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-forest text-lg font-black text-white shadow-md">
             SK
           </div>
-          <div className="flex flex-col">
-            <span className="font-heading text-lg font-black tracking-tight text-ink leading-tight">
-              SK Landscaping
-            </span>
-          </div>
+          <span className="font-heading text-xl font-black tracking-tight text-white">
+            SK <span className="text-leaf">LANDSCAPING</span>
+          </span>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`transition-colors hover:text-forest ${
-                  isActive ? "font-bold text-forest" : "text-ink/70"
-                }`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+        {/* Desktop Nav */}
+        <nav className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`text-sm font-semibold transition-colors hover:text-leaf ${
+                location.pathname === link.path ? "text-leaf font-bold" : "text-white/80"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
         </nav>
 
-        {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          <a
-            href={`tel:${CONTACT.phoneRaw}`}
-            className="flex items-center gap-2 text-xs font-bold text-forest hover:underline"
-          >
-            <Phone size={16} weight="fill" />
-            <span>{CONTACT.phone}</span>
-          </a>
+        {/* Action Button */}
+        <div className="hidden items-center gap-3 md:flex">
           <button
             onClick={() => openDialog()}
-            className="rounded-full bg-forest px-5 py-2.5 text-xs font-bold text-white transition-transform duration-200 hover:scale-105"
+            className="flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-transform hover:scale-105"
           >
-            Get Free Quote
+            <PhoneCall size={16} weight="bold" /> Get Free Quote
           </button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="rounded-lg p-2 text-ink md:hidden"
+          onClick={() => setOpen(!open)}
+          className="p-2 text-white md:hidden"
           aria-label="Toggle Menu"
         >
-          {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
+          {open ? <X size={26} /> : <List size={26} />}
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="border-t border-black/5 bg-cream px-5 py-6 md:hidden">
-          <div className="flex flex-col gap-4 text-base font-medium">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-ink/80 hover:text-forest ${
-                  location.pathname === link.path ? "font-bold text-forest" : ""
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-4 border-t border-black/10 flex flex-col gap-3">
-              <a
-                href={`tel:${CONTACT.phoneRaw}`}
-                className="flex items-center gap-2 text-sm font-bold text-forest"
-              >
-                <Phone size={18} weight="fill" />
-                <span>{CONTACT.phone}</span>
-              </a>
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="border-b border-white/10 bg-black/95 px-5 py-6 backdrop-blur-lg md:hidden"
+          >
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-base font-semibold ${
+                    location.pathname === link.path ? "text-leaf" : "text-white/80"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  setOpen(false);
                   openDialog();
                 }}
-                className="w-full rounded-full bg-forest py-3 text-sm font-bold text-white"
+                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-forest py-3 text-xs font-bold uppercase tracking-wider text-white"
               >
                 Get Free Quote
               </button>
             </div>
-          </div>
-        </div>
-      )}
-    </header>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
