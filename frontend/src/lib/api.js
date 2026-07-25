@@ -15,7 +15,7 @@ export const CONTACT = {
   phoneRaw: "+919313082732",
   whatsapp: "919313082732",
   email: "sklandscaping.in@gmail.com",
-  address: "Ode, Anand, Gujarat, India",
+  address: "Anand, Gujarat, India",
 };
 
 export const waLink = (msg = "Hi SK Landscaping, I'd like to know more about your services.") =>
