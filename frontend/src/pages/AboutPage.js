@@ -22,7 +22,7 @@ export default function AboutPage() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Our Story</p>
             <h2 className="mt-2 font-heading text-3xl font-black text-ink sm:text-4xl">Science Over Guesswork</h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Welcome to SK LANDSCAPING. We are a data-driven landscaping firm dedicated to creating energy-efficient, resilient green spaces for residential, commercial, and industrial sites.
+              Welcome to SKKKS LANDSCAPING. We are a data-driven landscaping firm dedicated to creating energy-efficient, resilient green spaces for residential, commercial, and industrial sites.
             </p>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground">
               We believe a garden should be built to last, not constantly replaced. Drawing on technical precision and an energy-conscious approach, we eliminate the common cycle of plant failure that costs clients time and money.
