@@ -35,16 +35,18 @@ export const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
-        {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <img 
-            src="/logo.png" 
-            alt="SK Landscaping Logo" 
-            className="h-10 w-auto object-contain" 
-          />
-        </Link>
-
-        {/* Desktop Links */}
+  {/* Brand Logo & Name */}
+<Link to="/" className="flex items-center gap-3">
+  <img 
+    src="/logo.png" 
+    alt="SK Logo" 
+    className="h-9 w-auto object-contain" 
+  />
+  <span className="font-heading text-lg font-black tracking-tight text-white sm:text-xl">
+    SK <span className="text-leaf">LANDSCAPING</span>
+  </span>
+</Link>
+    {/* Desktop Links */}
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => {
             const active = location.pathname === link.href;
