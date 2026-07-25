@@ -35,7 +35,7 @@ export default function Home() {
         </motion.div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8 w-full">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">ODE, ANAND, GUJARAT</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">ANAND, GUJARAT</p>
           
           <h1 className="mt-3 font-heading text-4xl font-black sm:text-6xl md:text-7xl leading-none">
             {heroLines.map((line, i) => (
