@@ -74,7 +74,7 @@ export const PublicLayout = ({ children }) => {
               <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
                 <iframe
                   title="Footer Map"
-                  src="https://www.google.com/maps?q=Ode, Anand, Gujarat, India&output=embed"
+                  src="https://www.google.com/maps?q=Anand, Gujarat, India&output=embed"
                   className="h-28 w-full"
                   loading="lazy"
                 />
