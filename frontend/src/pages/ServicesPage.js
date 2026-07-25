@@ -1,7 +1,6 @@
 import { PublicLayout } from "../components/PublicLayout";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
-import { Icon } from "../components/Icon";
 import { CORE_SERVICES, SPECIALIZATIONS } from "../data/content";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
@@ -31,28 +30,25 @@ export default function ServicesPage() {
       />
 
       {/* Core Services */}
-      <section className="py-20 md:py-28 mx-auto max-w-7xl px-5 md:px-8">
+      <section className="py-16 md:py-24 mx-auto max-w-7xl px-5 md:px-8">
         <Reveal>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Primary Solutions</p>
-          <h2 className="mt-3 font-heading text-3xl font-black text-ink sm:text-4xl">Core Landscaping Services</h2>
+          <h2 className="mt-2 font-heading text-3xl font-black text-ink sm:text-4xl">Core Landscaping Services</h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {CORE_SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.05}>
               <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div className="h-44 overflow-hidden">
+                <div className="h-48 overflow-hidden">
                   <img src={SERVICE_IMGS[i]} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <div className="p-6 flex flex-1 flex-col justify-between">
+                <div className="p-5 flex flex-1 flex-col justify-between">
                   <div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sage/60 text-forest">
-                      <Icon name={s.icon} size={22} weight="duotone" />
-                    </div>
-                    <h3 className="mt-4 font-heading text-lg font-bold text-ink">{s.title}</h3>
+                    <h3 className="font-heading text-lg font-bold text-ink leading-snug">{s.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                   </div>
-                  <button onClick={() => openDialog(s.title)} className="mt-6 w-full rounded-xl bg-sage/30 py-2.5 text-xs font-bold uppercase tracking-wider text-forest transition-colors hover:bg-forest hover:text-white">
+                  <button onClick={() => openDialog(s.title)} className="mt-5 w-full rounded-xl bg-forest py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90">
                     Enquire Now
                   </button>
                 </div>
@@ -63,29 +59,26 @@ export default function ServicesPage() {
       </section>
 
       {/* Specializations */}
-      <section className="py-20 md:py-28 bg-sage/20 border-t border-black/5">
+      <section className="py-16 md:py-24 bg-sage/20 border-t border-black/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <Reveal>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Specialized Expertise</p>
-            <h2 className="mt-3 font-heading text-3xl font-black text-ink sm:text-4xl">Specializations</h2>
+            <h2 className="mt-2 font-heading text-3xl font-black text-ink sm:text-4xl">Specializations</h2>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SPECIALIZATIONS.map((s, i) => (
               <Reveal key={s.title} delay={i * 0.05}>
                 <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <div className="h-48 overflow-hidden">
                     <img src={SERVICE_IMGS[i + 4]} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   </div>
-                  <div className="p-6 flex flex-1 flex-col justify-between">
+                  <div className="p-5 flex flex-1 flex-col justify-between">
                     <div>
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sage/60 text-forest">
-                        <Icon name={s.icon} size={22} weight="duotone" />
-                      </div>
-                      <h3 className="mt-4 font-heading text-lg font-bold text-ink">{s.title}</h3>
+                      <h3 className="font-heading text-lg font-bold text-ink leading-snug">{s.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                     </div>
-                    <button onClick={() => openDialog(s.title)} className="mt-6 w-full rounded-xl bg-forest py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90">
+                    <button onClick={() => openDialog(s.title)} className="mt-5 w-full rounded-xl bg-forest py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90">
                       Request Quote
                     </button>
                   </div>
