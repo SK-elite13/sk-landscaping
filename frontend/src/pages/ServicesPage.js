@@ -1,41 +1,98 @@
+import { PublicLayout } from "../components/PublicLayout";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { Icon } from "../components/Icon";
-import { SERVICES } from "../data/content";
+import { CORE_SERVICES, SPECIALIZATIONS } from "../data/content";
 import { useLeadDialog } from "../context/LeadDialogContext";
-import { PublicLayout } from "../components/PublicLayout";
-import { ArrowRight } from "@phosphor-icons/react";
+
+const SERVICE_IMGS = [
+  "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
+  "https://images.unsplash.com/photo-1558904541-efa843a96f01",
+  "https://images.unsplash.com/photo-1592417817098-8f3d6eb1626f",
+  "https://images.unsplash.com/photo-1512428559087-560fa5ceab42",
+  "https://images.unsplash.com/photo-1534710961216-75c88202f43e",
+  "https://images.unsplash.com/photo-1584467541268-b040f83be3fd",
+  "https://images.unsplash.com/photo-1416879595882-3373a0480b5b",
+  "https://images.unsplash.com/photo-1598902108854-10e335adac99",
+  "https://images.unsplash.com/photo-1523301343968-6a6ebf63c672",
+  "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9"
+];
 
 export default function ServicesPage() {
   const { openDialog } = useLeadDialog();
+
   return (
     <PublicLayout>
       <PageHeader
-        overline="What we do"
-        title="Complete landscaping & garden care."
-        subtitle="From first design to lifelong maintenance — every service delivered with craftsmanship and care. Tap any service to request a free site visit."
-        image="https://images.pexels.com/photos/32876098/pexels-photo-32876098.jpeg"
+        overline="Our Landscaping & Maintenance Solutions"
+        title="Science-Backed Services"
+        subtitle="From precise 2D planning and execution to living walls and scheduled AMC care — engineered for long-term health."
+        image="https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg"
       />
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28" data-testid="services-grid">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s, i) => (
-            <Reveal key={s.title} delay={(i % 3) * 0.05}>
-              <button
-                onClick={() => openDialog(s.title)}
-                data-testid={`services-page-card-${i}`}
-                className="group flex h-full w-full flex-col rounded-2xl border border-black/5 bg-white p-8 text-left shadow-sm transition-shadow duration-300 hover:shadow-xl hover:shadow-forest/5"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-sage/60 text-forest transition-colors duration-300 group-hover:bg-forest group-hover:text-white">
-                  <Icon name={s.icon} size={28} weight="duotone" />
+
+      {/* Core Services */}
+      <section className="py-20 md:py-28 mx-auto max-w-7xl px-5 md:px-8">
+        <Reveal>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Primary Solutions</p>
+          <h2 className="mt-3 font-heading text-3xl font-black text-ink sm:text-4xl">Core Landscaping Services</h2>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {CORE_SERVICES.map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.05}>
+              <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="h-44 overflow-hidden">
+                  <img src={SERVICE_IMGS[i]} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 </div>
-                <h3 className="mt-6 font-heading text-2xl font-bold text-ink">{s.title}</h3>
-                <p className="mt-3 flex-1 text-base leading-relaxed text-muted-foreground">{s.desc}</p>
-                <span className="mt-6 flex items-center gap-2 text-sm font-bold text-forest">
-                  Request site visit <ArrowRight size={16} weight="bold" className="transition-transform duration-200 group-hover:translate-x-1" />
-                </span>
-              </button>
+                <div className="p-6 flex flex-1 flex-col justify-between">
+                  <div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sage/60 text-forest">
+                      <Icon name={s.icon} size={22} weight="duotone" />
+                    </div>
+                    <h3 className="mt-4 font-heading text-lg font-bold text-ink">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                  </div>
+                  <button onClick={() => openDialog(s.title)} className="mt-6 w-full rounded-xl bg-sage/30 py-2.5 text-xs font-bold uppercase tracking-wider text-forest transition-colors hover:bg-forest hover:text-white">
+                    Enquire Now
+                  </button>
+                </div>
+              </div>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      {/* Specializations */}
+      <section className="py-20 md:py-28 bg-sage/20 border-t border-black/5">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <Reveal>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Specialized Expertise</p>
+            <h2 className="mt-3 font-heading text-3xl font-black text-ink sm:text-4xl">Specializations</h2>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SPECIALIZATIONS.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.05}>
+                <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div className="h-48 overflow-hidden">
+                    <img src={SERVICE_IMGS[i + 4]} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  </div>
+                  <div className="p-6 flex flex-1 flex-col justify-between">
+                    <div>
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sage/60 text-forest">
+                        <Icon name={s.icon} size={22} weight="duotone" />
+                      </div>
+                      <h3 className="mt-4 font-heading text-lg font-bold text-ink">{s.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                    </div>
+                    <button onClick={() => openDialog(s.title)} className="mt-6 w-full rounded-xl bg-forest py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-opacity hover:opacity-90">
+                      Request Quote
+                    </button>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </PublicLayout>
