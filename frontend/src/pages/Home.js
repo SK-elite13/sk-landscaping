@@ -23,7 +23,7 @@ const SERVICE_IMGS = [
   "https://images.pexels.com/photos/37720375/pexels-photo-37720375.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
 ];
 
-const heroLines = ["Beautiful", "Landscapes.", "Professionally", "Maintained."];
+const heroLines = ["Beautiful ", "Landscapes.", "Professionally ", "Maintained."];
 const lineVariant = {
   hidden: { y: "110%" },
   show: (i) => ({ y: "0%", transition: { duration: 0.9, delay: 0.2 + i * 0.12, ease: [0.22, 1, 0.36, 1] } })
