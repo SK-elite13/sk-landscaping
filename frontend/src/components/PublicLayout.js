@@ -16,18 +16,20 @@ export const PublicLayout = ({ children }) => {
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 pb-12 border-b border-white/10">
             {/* Brand Logo & Info */}
             <div>
-              <div className="flex items-center gap-3">
-                <img 
-                  src="/logo.png" 
-                  alt="SK Landscaping Logo" 
-                  className="h-12 w-auto object-contain" 
-                />
-              </div>
-              <p className="mt-4 text-sm leading-relaxed text-white/60">
-                Professional landscape design, garden maintenance and annual care built on quality, reliability and lasting relationships.
-              </p>
-            </div>
-
+  <Link to="/" className="flex items-center gap-3">
+    <img 
+      src="/logo.png" 
+      alt="SK Logo" 
+      className="h-10 w-auto object-contain" 
+    />
+    <span className="font-heading text-xl font-black text-white">
+      SK <span className="text-leaf">LANDSCAPING</span>
+    </span>
+  </Link>
+  <p className="mt-4 text-sm leading-relaxed text-white/60">
+    Professional landscape design, garden maintenance and annual care built on quality, reliability and lasting relationships.
+  </p>
+</div>
             {/* Navigation Links */}
             <div>
               <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Explore</h4>
