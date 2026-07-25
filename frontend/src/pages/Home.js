@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import { Phone, ArrowRight, ArrowUpRight, WhatsappLogo, Quotes } from "@phosphor-icons/react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 import { Reveal } from "../components/Reveal";
 import { Icon } from "../components/Icon";
 import { SERVICES, WHY, PROCESS, FAQS } from "../data/content";
 import { useLeadDialog } from "../context/LeadDialogContext";
 import { CONTACT, waLink } from "../lib/api";
+import { PublicLayout } from "../components/PublicLayout";
 
 const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
 const PROJECT_IMGS = [
@@ -318,7 +320,7 @@ const CTA = () => {
 
 export default function Home() {
   return (
-    <>
+    <PublicLayout>
       <Hero />
       <MarqueeStrip />
       <WhyChoose />
@@ -327,7 +329,8 @@ export default function Home() {
       <Projects />
       <Testimonials />
       <About />
+      <FaqSection />
       <CTA />
-    </>
+    </PublicLayout>
   );
 }
