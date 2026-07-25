@@ -1,123 +1,106 @@
-import { Link } from "react-router-dom";
 import { Navbar } from "./Navbar";
-import { LeadDialog } from "./LeadDialog";
-import { Phone, WhatsappLogo, EnvelopeSimple, MapPin } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
+import { Phone, Envelope, MapPin, WhatsappLogo } from "@phosphor-icons/react";
 import { CONTACT, waLink } from "../lib/api";
-import { useLeadDialog } from "../context/LeadDialogContext";
 
-export const PublicLayout = ({ children }) => {
-  const { openDialog } = useLeadDialog();
-
-  return (
-    <div className="flex min-h-screen flex-col bg-cream text-ink font-sans">
-      <Navbar />
-      <main className="flex-1">{children}</main>
-
-      {/* Full Footer */}
-      <footer className="bg-ink text-white pt-16 pb-12" data-testid="footer">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 pb-12 border-b border-white/10">
-            {/* Brand */}
-            <div>
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-forest font-heading font-black text-white">
-                  SK
-                </div>
-                <span className="font-heading text-xl font-black text-white">SK Landscaping</span>
-              </div>
-              <p className="mt-4 text-sm leading-relaxed text-white/60">
-                Professional landscape design, garden maintenance and annual care built on quality, reliability and lasting relationships.
-              </p>
+const Footer = () => (
+  <footer className="bg-ink text-white/80 pt-16 pb-12 border-t border-white/10" data-testid="footer">
+    <div className="mx-auto max-w-7xl px-5 md:px-8">
+      <div className="grid gap-12 lg:grid-cols-4">
+        {/* Col 1 */}
+        <div className="lg:col-span-1">
+          <div className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-forest text-base font-black text-white">
+              SK
             </div>
-
-            {/* Navigation Links */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Explore</h4>
-              <ul className="mt-4 space-y-2.5 text-sm font-medium text-white/70">
-                <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link to="/services" className="hover:text-white transition-colors">Services</Link></li>
-                <li><Link to="/projects" className="hover:text-white transition-colors">Projects</Link></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-
-            {/* Contact Details */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Get in Touch</h4>
-              <ul className="mt-4 space-y-3 text-sm text-white/70">
-                <li>
-                  <a href={`tel:${CONTACT.phoneRaw}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
-                    <Phone size={18} weight="fill" className="text-leaf" />
-                    <span>{CONTACT.phone}</span>
-                  </a>
-                </li>
-                <li>
-                  <a href={waLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-white transition-colors">
-                    <WhatsappLogo size={18} weight="fill" className="text-leaf" />
-                    <span>WhatsApp</span>
-                  </a>
-                </li>
-                <li>
-                  <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-2.5 hover:text-white transition-colors">
-                    <EnvelopeSimple size={18} weight="fill" className="text-leaf" />
-                    <span>{CONTACT.email}</span>
-                  </a>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <MapPin size={18} weight="fill" className="text-leaf shrink-0 mt-0.5" />
-                  <span>{CONTACT.address}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Mini Map & CTA */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Find Us</h4>
-              <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
-                <iframe
-                  title="Footer Map"
-                  src="https://www.google.com/maps?q=Ode, Anand, Gujarat, India&output=embed"
-                  className="h-28 w-full"
-                  loading="lazy"
-                />
-              </div>
-              <button
-                onClick={() => openDialog()}
-                className="mt-4 w-full rounded-full bg-forest py-2.5 text-xs font-bold text-white transition-transform duration-200 hover:scale-[1.02]"
-              >
-                Request Free Site Visit
-              </button>
-            </div>
+            <span className="font-heading text-lg font-black text-white">SK LANDSCAPING</span>
           </div>
+          <p className="mt-4 text-xs leading-relaxed text-white/60">
+            Science-backed, energy-efficient landscape design, execution, and scheduled maintenance services in Ode & Anand, Gujarat.
+          </p>
+        </div>
 
-          <div className="pt-8 text-center text-xs text-white/40">
-            © {new Date().getFullYear()} SK Landscaping. All rights reserved.
+        {/* Col 2 */}
+        <div>
+          <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-white">Navigation</h4>
+          <ul className="mt-4 space-y-2.5 text-xs">
+            <li><Link to="/" className="hover:text-leaf transition-colors">Home</Link></li>
+            <li><Link to="/services" className="hover:text-leaf transition-colors">Services</Link></li>
+            <li><Link to="/projects" className="hover:text-leaf transition-colors">Projects</Link></li>
+            <li><Link to="/about" className="hover:text-leaf transition-colors">About Us</Link></li>
+            <li><Link to="/contact" className="hover:text-leaf transition-colors">Contact</Link></li>
+          </ul>
+        </div>
+
+        {/* Col 3 */}
+        <div>
+          <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-white">Contact</h4>
+          <ul className="mt-4 space-y-3 text-xs">
+            <li className="flex items-center gap-2.5">
+              <Phone size={16} className="text-leaf shrink-0" />
+              <a href={`tel:${CONTACT.phoneRaw}`} className="hover:text-white">{CONTACT.phone}</a>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Envelope size={16} className="text-leaf shrink-0" />
+              <span>{CONTACT.email}</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <MapPin size={16} className="text-leaf shrink-0 mt-0.5" />
+              <span>{CONTACT.address}</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Col 4 - Clean Map Area without broken button */}
+        <div>
+          <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-white">Location</h4>
+          <div className="mt-4 h-36 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+            <iframe
+              title="SK Landscaping Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.738318281144!2d73.1114!3d22.6261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDM3JzM0LjAiTiA3M8KwMDYnNDEuMCJF!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            />
           </div>
         </div>
-      </footer>
+      </div>
 
-      {/* Fixed Prominent Floating Action Buttons */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
+      <div className="mt-12 pt-6 border-t border-white/10 text-center text-xs text-white/40">
+        © {new Date().getFullYear()} SK Landscaping. All rights reserved.
+      </div>
+    </div>
+  </footer>
+);
+
+export const PublicLayout = ({ children }) => {
+  return (
+    <div className="min-h-screen bg-cream text-ink flex flex-col justify-between">
+      <Navbar />
+      <main className="flex-grow">{children}</main>
+      <Footer />
+
+      {/* Floating Sticky Action Buttons */}
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col gap-2.5">
         <a
           href={waLink()}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="WhatsApp"
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95"
+          aria-label="WhatsApp Us"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110"
         >
-          <WhatsappLogo size={34} weight="fill" />
+          <WhatsappLogo size={28} weight="fill" />
         </a>
         <a
           href={`tel:${CONTACT.phoneRaw}`}
           aria-label="Call Us"
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-forest text-white shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-forest text-white shadow-lg transition-transform hover:scale-110 sm:hidden"
         >
-          <Phone size={30} weight="fill" />
+          <Phone size={22} weight="fill" />
         </a>
       </div>
-
-      <LeadDialog />
     </div>
   );
 };
