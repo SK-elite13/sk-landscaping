@@ -10,7 +10,7 @@ export default function AboutPage() {
     <PublicLayout>
       <PageHeader
         overline="About SK LANDSCAPING"
-        title="Precision Landscaping Built to Last97785"
+        title="Precision Landscaping Built to Last"
         subtitle="Data-driven, energy-efficient green space engineering for residential, commercial, and industrial clients."
         image="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1600&auto=format&fit=crop"
       />
