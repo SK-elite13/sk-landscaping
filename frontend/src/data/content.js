@@ -1,42 +1,93 @@
-export const SERVICES = [
-  { title: "Landscape Design", icon: "Layout", desc: "Bespoke garden architecture tailored to your space and vision." },
-  { title: "Garden Maintenance", icon: "Flower2", desc: "Regular upkeep that keeps your greens lush all year round." },
-  { title: "Annual Maintenance Contract", icon: "Calendar", desc: "Worry-free AMC plans with scheduled visits and care." },
-  { title: "Lawn Development", icon: "Trees", desc: "Dense, healthy lawns designed and grown from the ground up." },
-  { title: "Tree Plantation", icon: "TreePalmtree", desc: "Native and ornamental trees planted for shade and beauty." },
-  { title: "Garden Renovation", icon: "Sparkles", desc: "Reviving tired gardens into vibrant outdoor sanctuaries." },
-  { title: "Drip Irrigation", icon: "Droplets", desc: "Water-efficient irrigation systems engineered for your layout." },
-  { title: "Seasonal Planting", icon: "Sun", desc: "Colourful seasonal blooms rotated for year-round appeal." },
-  { title: "Garden Cleaning", icon: "Broom", desc: "Thorough clean-ups that leave every corner pristine." },
-  { title: "Hedge Trimming", icon: "Scissors", desc: "Precision trimming for crisp, sculpted hedges and borders." },
+export const WHY = [
+  {
+    title: "Science Over Guesswork",
+    desc: "We select plants based on light, soil, and microclimate data, ensuring your plants survive and do not need costly replacements.",
+    icon: "Plant"
+  },
+  {
+    title: "Resource & Energy Efficient",
+    desc: "Our layouts conserve water, lower power consumption, and reduce long-term maintenance expenses.",
+    icon: "Sun"
+  },
+  {
+    title: "End-to-End Care",
+    desc: "From 2D master plans and plant selection to setup and long-term care, we manage every phase.",
+    icon: "Tree"
+  },
+  {
+    title: "Data-Backed Maintenance",
+    desc: "Reliable, scheduled care to keep your ecosystem healthy and looking its best year-round.",
+    icon: "ShieldCheck"
+  }
 ];
 
-export const WHY = [
-  { title: "Professional Service", icon: "Award", desc: "Trained crews with a craftsman's eye for detail." },
-  { title: "Affordable Pricing", icon: "Tag", desc: "Transparent quotes with no hidden surprises." },
-  { title: "Free Site Inspection", icon: "MapPin", desc: "We visit, measure and advise completely free." },
-  { title: "Customized Solutions", icon: "Puzzle", desc: "Every plan is shaped around your property." },
-  { title: "Timely Completion", icon: "Clock", desc: "Projects delivered on schedule, every time." },
-  { title: "Reliable Maintenance", icon: "ShieldCheck", desc: "Dependable long-term care you can count on." },
+export const CORE_SERVICES = [
+  {
+    title: "2D Landscape Design & Plant Selection",
+    desc: "Customized master plans tailored to your site's soil, light, and climate data.",
+    icon: "MapPin"
+  },
+  {
+    title: "Landscape Execution & Site Development",
+    desc: "Professional installation bringing layout concepts and green spaces to life.",
+    icon: "Wrench"
+  },
+  {
+    title: "Garden Maintenance & AMC Contracts",
+    desc: "Structured, scheduled care plans to maintain long-term site health.",
+    icon: "Calendar"
+  },
+  {
+    title: "Seasonal Plant Supply & Upgrades",
+    desc: "Fresh, healthy plant additions selected specifically for seasonal conditions.",
+    icon: "Flower"
+  }
 ];
+
+export const SPECIALIZATIONS = [
+  {
+    title: "Interior, Balcony & Terrace Gardens",
+    desc: "Custom lush indoor and elevated outdoor sanctuaries engineered for your available light.",
+    icon: "House"
+  },
+  {
+    title: "Living Vertical Walls",
+    desc: "Space-saving vertical greenery systems with built-in irrigation.",
+    icon: "ArrowsOut"
+  },
+  {
+    title: "Organic Kitchen Gardens",
+    desc: "Sustainable, home-grown edible garden installations for fresh herbs and vegetables.",
+    icon: "Laf"
+  },
+  {
+    title: "Orchard & Mini Forest Planning",
+    desc: "Biodiverse fruit orchards and dense native mini-forest ecosystems.",
+    icon: "Tree"
+  },
+  {
+    title: "Industrial & Commercial Greenery",
+    desc: "Large-scale aesthetic and eco-friendly landscaping solutions for business parks and factories.",
+    icon: "Buildings"
+  },
+  {
+    title: "Premium GRC, FRP & RCC Planters",
+    desc: "Durable, high-end architectural pots and planters tailored to modern aesthetics.",
+    icon: "Package"
+  }
+];
+
+export const SERVICES = [...CORE_SERVICES, ...SPECIALIZATIONS];
 
 export const PROCESS = [
-  { step: "01", title: "Call Us", desc: "Reach out by phone or WhatsApp to tell us what you need." },
-  { step: "02", title: "Free Site Visit", desc: "Our team inspects your space and understands your goals." },
-  { step: "03", title: "Custom Proposal", desc: "You receive a detailed, tailored plan and transparent quote." },
-  { step: "04", title: "Work Starts", desc: "Our crew brings the design to life with precision." },
-  { step: "05", title: "Ongoing Maintenance", desc: "We keep your landscape flourishing season after season." },
+  { step: "01", title: "Consultation & Site Analysis", desc: "We evaluate your space, soil, light, and microclimate conditions." },
+  { step: "02", title: "2D Master Planning", desc: "We design a customized layout with precise plant and material selection." },
+  { step: "03", title: "Execution & Setup", desc: "Our team manages complete site installation and planting." },
+  { step: "04", title: "Long-Term AMC Care", desc: "We provide scheduled, data-backed maintenance to keep your ecosystem thriving." }
 ];
 
 export const FAQS = [
-  { q: "Do you offer a free site visit?", a: "Yes. We provide a complimentary site inspection where we assess your space, understand your needs and advise on the best approach with no obligation." },
-  { q: "What areas do you serve?", a: "We are based in Ode, Anand, Gujarat and serve homes, bungalows, farmhouses, societies, villas, commercial properties, schools and industries across the region." },
-  { q: "What is an AMC (Annual Maintenance Contract)?", a: "An AMC is a yearly plan with scheduled maintenance visits—mowing, trimming, plant health checks, irrigation care and more—so your garden stays pristine without you lifting a finger." },
-  { q: "How do you price your projects?", a: "Pricing depends on the scope, area and services required. After the free site visit we share a transparent, itemised quotation so you know exactly what to expect." },
-  { q: "Do you handle both design and maintenance?", a: "Absolutely. We design and build new landscapes and also maintain existing gardens through one-time services or ongoing contracts." },
-  { q: "How soon can you start?", a: "Once the proposal is approved, we schedule the work at the earliest available slot and always aim for timely completion." },
-];
-
-export const PROPERTY_TYPES = [
-  "Home / Apartment", "Bungalow", "Farmhouse", "Society", "Villa", "Commercial", "School", "Industry"
+  { q: "What areas do you serve?", a: "We primarily serve Ode, Anand, and surrounding regions in Gujarat for residential, commercial, and industrial projects." },
+  { q: "What is included in an AMC (Annual Maintenance Contract)?", a: "AMCs include regular site visits, pruning, soil treatment, pest control, fertilization, and irrigation checks." },
+  { q: "How does 'Science Over Guesswork' help my garden?", a: "By selecting species based on actual soil chemistry and light exposure, plants survive long-term, saving you from constant replacement costs." }
 ];
