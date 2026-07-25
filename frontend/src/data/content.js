@@ -87,7 +87,7 @@ export const PROCESS = [
 ];
 
 export const FAQS = [
-  { q: "What areas do you serve?", a: "We primarily serve Ode, Anand, and surrounding regions in Gujarat for residential, commercial, and industrial projects." },
+  { q: "What areas do you serve?", a: "We serve Anand and surrounding regions across Gujarat for residential, commercial, and industrial landscaping projects." },
   { q: "What is included in an AMC (Annual Maintenance Contract)?", a: "AMCs include regular site visits, pruning, soil treatment, pest control, fertilization, and irrigation checks." },
   { q: "How does 'Science Over Guesswork' help my garden?", a: "By selecting species based on actual soil chemistry and light exposure, plants survive long-term, saving you from constant replacement costs." }
 ];
