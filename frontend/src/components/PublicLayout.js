@@ -10,17 +10,18 @@ export const PublicLayout = ({ children }) => {
       <Navbar />
       <main className="flex-1">{children}</main>
 
-      {/* Full Original Dark Footer */}
+      {/* Footer */}
       <footer className="bg-ink text-white pt-16 pb-12" data-testid="footer">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 pb-12 border-b border-white/10">
-            {/* Brand */}
+            {/* Brand Logo & Info */}
             <div>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-forest font-heading font-black text-white">
-                  SK
-                </div>
-                <span className="font-heading text-xl font-black text-white">SK Landscaping</span>
+                <img 
+                  src="/logo.png" 
+                  alt="SK Landscaping Logo" 
+                  className="h-12 w-auto object-contain" 
+                />
               </div>
               <p className="mt-4 text-sm leading-relaxed text-white/60">
                 Professional landscape design, garden maintenance and annual care built on quality, reliability and lasting relationships.
@@ -63,18 +64,18 @@ export const PublicLayout = ({ children }) => {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <MapPin size={18} weight="fill" className="text-leaf shrink-0 mt-0.5" />
-                  <span>{CONTACT.address}</span>
+                  <span>Anand, Gujarat, India</span>
                 </li>
               </ul>
             </div>
 
-            {/* Mini Map (Button Removed) */}
+            {/* Mini Map */}
             <div>
               <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Find Us</h4>
               <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
                 <iframe
                   title="Footer Map"
-                  src="https://www.google.com/maps?q=Anand, Gujarat, India&output=embed"
+                  src="https://www.google.com/maps?q=Anand,Gujarat,India&output=embed"
                   className="h-28 w-full"
                   loading="lazy"
                 />
@@ -88,7 +89,7 @@ export const PublicLayout = ({ children }) => {
         </div>
       </footer>
 
-      {/* Prominent Floating Action Buttons */}
+      {/* Floating Action Buttons */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
         <a
           href={waLink()}
