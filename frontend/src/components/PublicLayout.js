@@ -97,23 +97,23 @@ export const PublicLayout = ({ children }) => {
         </div>
       </footer>
 
-      {/* Floating Call & WhatsApp Action Buttons */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
+      {/* Fixed Prominent Floating Action Buttons */}
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3">
         <a
           href={waLink()}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
-          className="flex h-13 w-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform duration-200 hover:scale-110"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95"
         >
-          <WhatsappLogo size={28} weight="fill" />
+          <WhatsappLogo size={34} weight="fill" />
         </a>
         <a
           href={`tel:${CONTACT.phoneRaw}`}
           aria-label="Call Us"
-          className="flex h-13 w-13 items-center justify-center rounded-full bg-forest text-white shadow-lg transition-transform duration-200 hover:scale-110"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-forest text-white shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95"
         >
-          <Phone size={24} weight="fill" />
+          <Phone size={30} weight="fill" />
         </a>
       </div>
 
