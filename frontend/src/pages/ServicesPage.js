@@ -24,8 +24,8 @@ export default function ServicesPage() {
     <PublicLayout>
       <PageHeader
         overline="Our Landscaping & Maintenance Solutions"
-        title="Science-Backed Services"
-        subtitle="From precise 2D planning and execution to living walls and scheduled AMC care — engineered for long-term health."
+        title="Design, Build & Care"
+        subtitle="Complete landscape design, expert installation, and dedicated care tailored to keep your greenery thriving season after season."
         image="https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg"
       />
 
