@@ -8,7 +8,7 @@ import { WHY, CORE_SERVICES, FAQS } from "../data/content";
 import { useLeadDialog } from "../context/LeadDialogContext";
 import { waLink } from "../lib/api";
 
-const HERO_IMG = "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg";
+const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
 
 const heroLines = ["Beautiful ", "Landscapes.", "Professionally ", "Maintained."];
 
