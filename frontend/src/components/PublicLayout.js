@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Phone, WhatsappLogo, MapPin, EnvelopeSimple } from "@phosphor-icons/react";
 import { Navbar } from "./Navbar";
 import { LeadDialog } from "./LeadDialog";
@@ -11,7 +11,8 @@ export const PublicLayout = ({ children }) => {
     <div className="min-h-screen bg-sand text-ink flex flex-col justify-between font-sans">
       <Navbar />
 
-      <main className="flex-grow">{children}</main>
+      {/* Reduced top padding on mobile (pt-14 = 56px) to fit the sleek mobile header */}
+      <main className="flex-grow pt-14 md:pt-20">{children}</main>
 
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
