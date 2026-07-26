@@ -1,7 +1,6 @@
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { useLeadDialog } from "../context/LeadDialogContext";
-import { PublicLayout } from "../components/PublicLayout";
 
 const IMGS = [
   "https://images.pexels.com/photos/37429855/pexels-photo-37429855.png",
@@ -15,7 +14,7 @@ const IMGS = [
 export default function ProjectsPage() {
   const { openDialog } = useLeadDialog();
   return (
-    <PublicLayout>
+    <div>
       <PageHeader
         overline="Our work"
         title="Projects in the making."
@@ -46,6 +45,6 @@ export default function ProjectsPage() {
           </div>
         </Reveal>
       </section>
-    </PublicLayout>
+    </div>
   );
 }
