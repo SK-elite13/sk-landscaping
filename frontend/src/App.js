@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PublicLayout } from "./components/PublicLayout";
 import { LeadDialogProvider } from "./context/LeadDialogContext";
 
+// Imports matching named exports in your pages directory
 import Home from "./pages/Home";
-// Make sure these page files exist in src/pages/ or standard components
-import { Services } from "./pages/Services"; 
+import { Services } from "./pages/Services";
 import { Projects } from "./pages/Projects";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
