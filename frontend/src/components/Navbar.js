@@ -39,9 +39,9 @@ export const Navbar = () => {
           <img 
             src="/logo.png" 
             alt="SK Logo" 
-            className="h-10 w-auto object-contain" 
+            className="h-11 w-auto object-contain sm:h-12" 
           />
-          <span className="font-heading text-lg font-black tracking-tight text-white sm:text-xl">
+          <span className="font-heading text-xl font-black tracking-wide text-white sm:text-2xl">
             SK <span className="text-leaf">LANDSCAPING</span>
           </span>
         </Link>
