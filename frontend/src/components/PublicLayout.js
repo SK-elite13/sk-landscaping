@@ -22,7 +22,7 @@ export const PublicLayout = ({ children }) => {
                   alt="SK Logo" 
                   className="h-10 w-auto object-contain" 
                 />
-                <span className="font-heading text-2xl font-black tracking-wide text-white"> 
+                <span className="font-heading text-4xl font-black tracking-wide text-white"> 
                   SK <span className="text-leaf">LANDSCAPING</span>
                 </span>
               </Link>
