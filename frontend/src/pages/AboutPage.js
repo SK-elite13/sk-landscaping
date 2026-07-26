@@ -1,4 +1,3 @@
-import { PublicLayout } from "../components/PublicLayout";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { useLeadDialog } from "../context/LeadDialogContext";
@@ -7,7 +6,7 @@ export default function AboutPage() {
   const { openDialog } = useLeadDialog();
 
   return (
-    <PublicLayout>
+    <div>
       <PageHeader
         overline="About SK LANDSCAPING"
         title="Precision Landscaping Built to Last"
@@ -72,6 +71,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </PublicLayout>
+    </div>
   );
 }
