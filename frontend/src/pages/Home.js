@@ -11,6 +11,8 @@ import { useLeadDialog } from "../context/LeadDialogContext";
 export function Home() {
   const { openDialog } = useLeadDialog();
 
+  const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
+
   const services = [
     {
       title: "2D Landscape Design & Plant Selection",
@@ -55,7 +57,7 @@ export function Home() {
       <section className="relative min-h-screen flex items-end bg-ink text-white pb-16 pt-28 px-5 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=2000&auto=format&fit=crop"
+            src={HERO_IMG}
             alt="Landscaping Background"
             className="w-full h-full object-cover"
           />
@@ -204,3 +206,4 @@ export function Home() {
 }
 
 export default Home;
+ 
