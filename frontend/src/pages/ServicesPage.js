@@ -22,7 +22,7 @@ export default function ServicesPage() {
   return (
     <div>
       <PageHeader
-        overline="Our 0717 Landscaping & Maintenance Solutions"
+        overline="Our Landscaping & Maintenance Solutions"
         title="Design, Build & Care"
         subtitle="Complete landscape design, expert installation, and dedicated care tailored to keep your greenery thriving season after season."
         image="https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg"
