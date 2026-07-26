@@ -50,8 +50,11 @@ export function Navbar() {
     return location.pathname.startsWith(path);
   };
 
+  const isHomePage = location.pathname === "/";
   const isVisibleMobile = scrollDirection === "up" || mobileMenuOpen;
-  const isDarkGlass = (!isAtTop && scrollDirection === "up") || mobileMenuOpen;
+  
+  // Use dark glass if scrolled, mobile drawer open, or on interior light pages at the top
+  const isDarkGlass = (!isAtTop && scrollDirection === "up") || mobileMenuOpen || (!isHomePage && isAtTop);
 
   return (
     <header
@@ -60,10 +63,9 @@ export function Navbar() {
       } ${
         isDarkGlass
           ? "bg-black/85 backdrop-blur-md border-b border-white/10 text-white shadow-md"
-          : "bg-white/10 backdrop-blur-sm border-b border-white/10 text-white"
+          : "bg-black/20 backdrop-blur-sm border-b border-white/10 text-white"
       }`}
     >
-      {/* h-14 (56px) on mobile, h-20 on desktop */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link
@@ -83,7 +85,7 @@ export function Navbar() {
           <span className="text-leaf">LANDSCAPING</span>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const active = isActive(link.path);
@@ -92,9 +94,7 @@ export function Navbar() {
                 key={link.name}
                 to={link.path}
                 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
-                  active
-                    ? "text-leaf font-extrabold"
-                    : "text-white/80 hover:text-white"
+                  active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
                 }`}
               >
                 {link.name}
@@ -102,14 +102,14 @@ export function Navbar() {
             );
           })}
           <button
-            onClick={openDialog}
+            onClick={() => openDialog()}
             className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
           >
             GET FREE QUOTE
           </button>
         </nav>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none"
@@ -119,7 +119,7 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Top-to-Bottom Slide Drawer */}
+      {/* Mobile Menu Drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "max-h-96 opacity-100 border-t border-white/10" : "max-h-0 opacity-0"
