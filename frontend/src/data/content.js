@@ -15,7 +15,7 @@ export const WHY = [
     icon: "Tree"
   },
   {
-    title: "Data-Backed Maintenance",
+    title: "Scheduled Maintenance",
     desc: "Reliable, scheduled care to keep your ecosystem healthy and looking its best year-round.",
     icon: "ShieldCheck"
   }
