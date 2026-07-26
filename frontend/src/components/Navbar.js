@@ -21,7 +21,7 @@ export function Navbar() {
         setScrollDirection("up");
       } else {
         setIsAtTop(false);
-        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        if (currentScrollY > lastScrollY && currentScrollY > 60) {
           setScrollDirection("down");
         } else if (currentScrollY < lastScrollY) {
           setScrollDirection("up");
@@ -63,9 +63,9 @@ export function Navbar() {
           : "bg-white/10 backdrop-blur-sm border-b border-white/10 text-white"
       }`}
     >
-      {/* Reduced height on mobile: h-14 (56px) on mobile, h-20 on desktop */}
+      {/* h-14 (56px) on mobile, h-20 on desktop */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between">
-        {/* Logo */}
+        {/* Brand Logo */}
         <Link
           to="/"
           onClick={() => setMobileMenuOpen(false)}
@@ -83,7 +83,7 @@ export function Navbar() {
           <span className="text-leaf">LANDSCAPING</span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const active = isActive(link.path);
@@ -109,7 +109,7 @@ export function Navbar() {
           </button>
         </nav>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Menu Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none"
@@ -119,7 +119,7 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Top-to-Bottom Slide Drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "max-h-96 opacity-100 border-t border-white/10" : "max-h-0 opacity-0"
