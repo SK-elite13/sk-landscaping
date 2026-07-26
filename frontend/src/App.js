@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { PublicLayout } from "./components/PublicLayout";
 import { LeadDialogProvider } from "./context/LeadDialogContext";
 
+// Default imports matching 'export default ...' in your page files
 import Home from "./pages/Home";
-import { ServicesPage } from "./pages/ServicesPage";
-import { ProjectsPage } from "./pages/ProjectsPage";
-import { AboutPage } from "./pages/AboutPage";
-import { ContactPage } from "./pages/ContactPage";
+import ServicesPage from "./pages/ServicesPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 export default function App() {
   return (
