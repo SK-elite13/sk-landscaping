@@ -6,7 +6,6 @@ import { useLeadDialog } from "../context/LeadDialogContext";
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
-  const [isAtTop, setIsAtTop] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const { openDialog } = useLeadDialog();
@@ -17,10 +16,8 @@ export function Navbar() {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY <= 20) {
-        setIsAtTop(true);
         setScrollDirection("up");
       } else {
-        setIsAtTop(false);
         if (currentScrollY > lastScrollY && currentScrollY > 60) {
           setScrollDirection("down");
         } else if (currentScrollY < lastScrollY) {
@@ -50,23 +47,15 @@ export function Navbar() {
     return location.pathname.startsWith(path);
   };
 
-  const isHomePage = location.pathname === "/";
-  const isVisibleMobile = scrollDirection === "up" || mobileMenuOpen;
-  
-  // Strict dark bar with clear edge when scrolled or on interior pages
-  const isDarkGlass = (!isAtTop && scrollDirection === "up") || mobileMenuOpen || (!isHomePage && isAtTop);
+  const isVisible = scrollDirection === "up" || mobileMenuOpen;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        isVisibleMobile ? "translate-y-0" : "-translate-y-full md:translate-y-0"
-      } ${
-        isDarkGlass
-          ? "bg-black/90 backdrop-blur-sm border-b border-white/10 text-white"
-          : "bg-black/40 backdrop-blur-sm border-b border-white/10 text-white"
+      className={`fixed top-0 left-0 right-0 z-50 bg-ink border-b border-white/10 text-white transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full md:translate-y-0"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link
           to="/"
@@ -120,40 +109,38 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu Drawer */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? "max-h-96 opacity-100 border-t border-white/10" : "max-h-0 opacity-0"
-        } bg-black/95 backdrop-blur-xl px-5 py-4 space-y-3`}
-      >
-        <nav className="flex flex-col space-y-2.5">
-          {navLinks.map((link) => {
-            const active = isActive(link.path);
-            return (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-sm font-bold tracking-wide transition-colors ${
-                  active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="pt-2">
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              openDialog();
-            }}
-            className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
-          >
-            GET FREE QUOTE
-          </button>
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-ink border-t border-white/10 px-5 py-4 space-y-3">
+          <nav className="flex flex-col space-y-2.5">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm font-bold tracking-wide transition-colors ${
+                    active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="pt-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openDialog();
+              }}
+              className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
+            >
+              GET FREE QUOTE
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
