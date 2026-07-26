@@ -1,113 +1,116 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
-const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
-
-export const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const location = useLocation();
+export function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openDialog } = useLeadDialog();
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Projects", path: "/projects" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
+  ];
 
-  useEffect(() => {
-    setOpen(false);
-  }, [location.pathname]);
+  const isActive = (path) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-ink/90 backdrop-blur-md py-3 shadow-lg" : "bg-transparent py-5"
-      }`}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
-        {/* Brand Logo & Name */}
-        <Link to="/" className="flex items-center gap-3">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/85 backdrop-blur-md border-b border-white/10 text-white transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Link 
+          to="/" 
+          onClick={() => setMobileMenuOpen(false)}
+          className="flex items-center gap-2 text-xl font-black tracking-tight"
+        >
           <img 
             src="/logo.png" 
             alt="SK Logo" 
-            className="h-11 w-auto object-contain sm:h-12" 
+            className="h-9 w-auto object-contain" 
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
-          <span className="font-heading text-xl font-black tracking-wide text-white sm:text-2xl">
-            SK <span className="text-leaf">LANDSCAPING</span>
-          </span>
+          <span className="text-white">SK</span>
+          <span className="text-leaf">LANDSCAPING</span>
         </Link>
 
-        {/* Desktop Links */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => {
-            const active = location.pathname === link.href;
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => {
+            const active = isActive(link.path);
             return (
               <Link
-                key={link.href}
-                to={link.href}
-                className={`text-sm font-medium transition-colors hover:text-leaf ${
-                  active ? "text-leaf font-semibold" : "text-white/80"
+                key={link.name}
+                to={link.path}
+                className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+                  active ? "text-leaf" : "text-white/80 hover:text-white"
                 }`}
               >
-                {link.label}
+                {link.name}
               </Link>
             );
           })}
+          <button
+            onClick={openDialog}
+            className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+          >
+            GET FREE QUOTE
+          </button>
         </nav>
 
-        {/* Action Button */}
-        <div className="hidden items-center gap-4 md:flex">
-          <button
-            onClick={() => openDialog()}
-            className="rounded-full bg-forest px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-transform hover:scale-105 active:scale-95"
-          >
-            Get Free Quote
-          </button>
-        </div>
-
-        {/* Mobile Toggle */}
+        {/* Mobile Menu Toggle Button */}
         <button
-          onClick={() => setOpen(!open)}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden p-2 text-white hover:text-leaf transition-colors focus:outline-none"
           aria-label="Toggle Navigation"
-          className="rounded-lg p-2 text-white md:hidden hover:bg-white/10"
         >
-          {open ? <X size={26} /> : <List size={26} />}
+          {mobileMenuOpen ? <X size={28} weight="bold" /> : <List size={28} weight="bold" />}
         </button>
       </div>
 
       {/* Mobile Drawer */}
-      {open && (
-        <div className="border-b border-white/10 bg-ink px-5 py-6 md:hidden">
-          <nav className="flex flex-col gap-4">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="text-base font-medium text-white/90 hover:text-leaf"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
-              <button
-                onClick={() => openDialog()}
-                className="w-full rounded-xl bg-forest py-3 text-xs font-bold uppercase tracking-wider text-white"
-              >
-                Get Free Quote
-              </button>
-            </div>
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 px-6 py-6 space-y-5 animate-in slide-in-from-top duration-200">
+          <nav className="flex flex-col space-y-4">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-base font-bold tracking-wide transition-colors ${
+                    active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
+          <div className="pt-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openDialog();
+              }}
+              className="w-full py-3.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
+            >
+              GET FREE QUOTE
+            </button>
+          </div>
         </div>
       )}
     </header>
   );
-};
+}
+
+export default Navbar;
