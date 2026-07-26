@@ -53,7 +53,7 @@ export function Navbar() {
   const isHomePage = location.pathname === "/";
   const isVisibleMobile = scrollDirection === "up" || mobileMenuOpen;
   
-  // Use dark glass if scrolled, mobile drawer open, or on interior light pages at the top
+  // Strict dark bar with clear edge when scrolled or on interior pages
   const isDarkGlass = (!isAtTop && scrollDirection === "up") || mobileMenuOpen || (!isHomePage && isAtTop);
 
   return (
@@ -62,21 +62,21 @@ export function Navbar() {
         isVisibleMobile ? "translate-y-0" : "-translate-y-full md:translate-y-0"
       } ${
         isDarkGlass
-          ? "bg-black/85 backdrop-blur-md border-b border-white/10 text-white shadow-md"
-          : "bg-black/20 backdrop-blur-sm border-b border-white/10 text-white"
+          ? "bg-black/90 backdrop-blur-sm border-b border-white/10 text-white"
+          : "bg-black/40 backdrop-blur-sm border-b border-white/10 text-white"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between overflow-hidden">
         {/* Brand Logo */}
         <Link
           to="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center gap-1.5 text-lg md:text-xl font-black tracking-tight"
+          className="flex items-center gap-1.5 text-base md:text-xl font-black tracking-tight shrink-0"
         >
           <img
             src="/logo.png"
             alt="SK Logo"
-            className="h-7 md:h-9 w-auto object-contain"
+            className="h-6 md:h-9 w-auto object-contain"
             onError={(e) => {
               e.target.style.display = "none";
             }}
@@ -109,10 +109,10 @@ export function Navbar() {
           </button>
         </nav>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none"
+          className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none shrink-0"
           aria-label="Toggle Navigation"
         >
           {mobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
