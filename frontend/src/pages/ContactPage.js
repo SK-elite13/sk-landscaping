@@ -2,7 +2,6 @@ import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { LeadForm } from "../components/LeadForm";
 import { CONTACT, waLink } from "../lib/api";
-import { PublicLayout } from "../components/PublicLayout";
 import { Phone, WhatsappLogo, EnvelopeSimple, MapPin } from "@phosphor-icons/react";
 
 export default function ContactPage() {
@@ -14,7 +13,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <PublicLayout>
+    <div>
       <PageHeader
         overline="Get in touch"
         title="Let's plan your garden."
@@ -62,6 +61,6 @@ export default function ContactPage() {
           </Reveal>
         </div>
       </section>
-    </PublicLayout>
+    </div>
   );
 }
