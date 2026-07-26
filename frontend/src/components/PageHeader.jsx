@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 export const PageHeader = ({ overline, title, subtitle, image }) => (
-  <section className="relative overflow-hidden pt-20 pb-12 md:pt-36 md:pb-20" data-testid="page-header">
+  <section className="relative overflow-hidden pt-6 pb-12 md:pt-20 md:pb-20" data-testid="page-header">
     {image && (
       <>
         <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover" />
