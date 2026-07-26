@@ -9,7 +9,7 @@ export default function ContactPage() {
     { icon: Phone, label: "Call us", value: CONTACT.phone, href: `tel:${CONTACT.phoneRaw}` },
     { icon: WhatsappLogo, label: "WhatsApp", value: CONTACT.phone, href: waLink() },
     { icon: EnvelopeSimple, label: "Email", value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-    { icon: MapPin, label: "Address", value: CONTACT.address, href: "https://www.google.com/maps?q=Ode, Anand, Gujarat, India" }
+    { icon: MapPin, label: "Address", value: CONTACT.address, href: "https://www.google.com/maps?q=Anand, Gujarat, India" }
   ];
 
   return (
@@ -44,7 +44,7 @@ export default function ContactPage() {
             <div className="mt-4 overflow-hidden rounded-2xl border border-black/5">
               <iframe
                 title="Map"
-                src="https://www.google.com/maps?q=Ode, Anand, Gujarat, India&output=embed"
+                src="https://www.google.com/maps?q=Anand, Gujarat, India&output=embed"
                 className="h-64 w-full"
                 loading="lazy"
               />
