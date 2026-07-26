@@ -40,7 +40,7 @@ export default function ProjectsPage() {
             <h2 className="font-heading text-3xl font-black tracking-tight text-ink sm:text-4xl">Want to be our next showcase?</h2>
             <p className="mx-auto mt-4 max-w-xl text-base text-ink/70">Book a free site visit and let's create something worth featuring.</p>
             <button onClick={() => openDialog()} data-testid="projects-cta" className="mt-8 rounded-full bg-forest px-8 py-4 text-base font-bold text-white transition-transform duration-200 hover:scale-105">
-              Request Free Site Visit
+              Request Free Site Visit 
             </button>
           </div>
         </Reveal>
