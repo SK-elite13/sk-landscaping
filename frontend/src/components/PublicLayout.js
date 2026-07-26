@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Phone, WhatsappLogo, MapPin, EnvelopeSimple } from "@phosphor-icons/react";
 import { Navbar } from "./Navbar";
-import { QuickLeadModal } from "./QuickLeadModal";
+import { LeadDialog } from "./LeadDialog";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
 export const PublicLayout = ({ children }) => {
@@ -44,9 +44,9 @@ export const PublicLayout = ({ children }) => {
               <img 
                 src="/logo.png" 
                 alt="SK Logo" 
-                className="h-11 w-auto object-contain sm:h-12" 
+                className="h-12 w-auto object-contain sm:h-14" 
               />
-              <span className="font-heading text-xl font-black tracking-wide text-white sm:text-2xl">
+              <span className="font-heading text-2xl font-black tracking-wide text-white sm:text-3xl">
                 SK <span className="text-leaf">LANDSCAPING</span>
               </span>
             </Link>
@@ -117,7 +117,7 @@ export const PublicLayout = ({ children }) => {
       </footer>
 
       {/* Global Lead Modal */}
-      <QuickLeadModal isOpen={isDialogOpen} onClose={closeDialog} />
+      <LeadDialog isOpen={isDialogOpen} onClose={closeDialog} />
     </div>
   );
 };
