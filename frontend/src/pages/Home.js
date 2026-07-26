@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
-import { 
-  ArrowRight, 
-  Plant, 
-  Scissors, 
-  Tree, 
-  CalendarCheck 
+import {
+  ArrowRight,
+  Plant,
+  Scissors,
+  Tree,
+  CalendarCheck
 } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
 export function Home() {
   const { openDialog } = useLeadDialog();
-
-  const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
+  const HERO_IMG =
+    "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
 
   const services = [
     {
@@ -53,8 +53,8 @@ export function Home() {
 
   return (
     <div className="space-y-16 pb-16">
-      {/* Hero Section with Original Bottom Placement */}
-      <section className="relative min-h-screen flex items-end bg-ink text-white pb-16 pt-28 px-5 overflow-hidden">
+      {/* Hero Section - Tightened Top Padding */}
+      <section className="relative min-h-[90vh] flex items-end bg-ink text-white pb-16 pt-6 md:pt-12 px-5 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={HERO_IMG}
@@ -77,7 +77,7 @@ export function Home() {
           </p>
           <div className="pt-2 flex flex-row items-center gap-3">
             <button
-              onClick={openDialog}
+              onClick={() => openDialog()}
               className="px-5 py-3 bg-forest hover:bg-leaf text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center gap-2"
             >
               GET FREE SITE VISIT <ArrowRight size={16} />
@@ -103,17 +103,16 @@ export function Home() {
               to="/services"
               className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-forest hover:text-leaf transition-colors"
             >
-              VIEW ALL SERVICES <span className="text-base">↗</span>
+              VIEW ALL SERVICES <span className="text-base">/</span>
             </Link>
           </div>
           <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             Our Services
           </h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((item, index) => {
-            const Icon = item.icon;
+            const IconComponent = item.icon;
             return (
               <div
                 key={index}
@@ -121,13 +120,13 @@ export function Home() {
               >
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-sand flex items-center justify-center text-forest">
-                    <Icon size={24} weight="bold" />
+                    <IconComponent size={24} weight="bold" />
                   </div>
                   <h3 className="text-lg font-bold text-ink">{item.title}</h3>
                   <p className="text-sm text-ink/70 leading-relaxed">{item.description}</p>
                 </div>
                 <button
-                  onClick={openDialog}
+                  onClick={() => openDialog(item.title)}
                   className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-colors"
                 >
                   ENQUIRE NOW
@@ -148,7 +147,6 @@ export function Home() {
             Frequently Asked
           </h2>
         </div>
-
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <details
@@ -185,7 +183,7 @@ export function Home() {
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <button
-              onClick={openDialog}
+              onClick={() => openDialog()}
               className="w-full sm:w-auto px-8 py-3.5 bg-white text-forest hover:bg-sand font-bold text-xs uppercase tracking-wider rounded-xl transition-all"
             >
               REQUEST QUOTE
@@ -206,4 +204,3 @@ export function Home() {
 }
 
 export default Home;
- 
