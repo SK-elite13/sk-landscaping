@@ -86,7 +86,7 @@ export default function ProjectsPage() {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Be Our Next Highlight</p>
             <h2 className="mt-2 font-heading text-2xl font-black sm:text-4xl">Want your garden featured as our next project?</h2>
             <p className="mx-auto mt-3 max-w-xl text-sm md:text-base text-white/80">
-              Schedule a free site visit in Anand, Vadodara, or surrounding areas. Let's design something worth showing off.
+              Schedule a free site visit in Anand, Nadiad, Vadodara, or surrounding areas. Let's design something worth showing off.
             </p>
             <button 
               onClick={() => openDialog("Projects Showcase Consultation")} 
