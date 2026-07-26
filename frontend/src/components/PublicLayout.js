@@ -6,7 +6,6 @@ import { useLeadDialog } from "../context/LeadDialogContext";
 
 export const PublicLayout = ({ children }) => {
   const { isDialogOpen, closeDialog } = useLeadDialog();
-  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-sand text-ink flex flex-col justify-between font-sans">
@@ -14,7 +13,7 @@ export const PublicLayout = ({ children }) => {
 
       <main className="flex-grow">{children}</main>
 
-      {/* Floating Contact Action Buttons */}
+      {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
         <a
           href="https://wa.me/919313082732"
@@ -36,22 +35,22 @@ export const PublicLayout = ({ children }) => {
 
       {/* Footer */}
       <footer className="bg-ink text-white/80 pt-16 pb-8 border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="mx-auto max-w-7xl px-5 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
           
-          {/* Col 1: Brand Info */}
-          <div className="space-y-4 md:col-span-1">
-            <Link to="/" className="flex items-center gap-3">
+          {/* Col 1: Clean Brand Header */}
+          <div className="space-y-3">
+            <Link to="/" className="inline-flex items-center gap-2">
               <img 
                 src="/logo.png" 
                 alt="SK Logo" 
-                className="h-12 w-auto object-contain sm:h-14" 
+                className="h-9 w-auto object-contain" 
               />
-              <span className="font-heading text-2xl font-black tracking-wide text-white sm:text-3xl">
+              <span className="font-heading text-lg font-black tracking-wider text-white">
                 SK <span className="text-leaf">LANDSCAPING</span>
               </span>
             </Link>
-            <p className="text-xs text-white/60 leading-relaxed">
-              Professional landscape design, garden maintenance and annual care built on quality, reliability and lasting relationships.
+            <p className="text-xs text-white/60 leading-relaxed max-w-xs">
+              Professional landscape design, garden maintenance, and annual care built on quality and reliability.
             </p>
           </div>
 
