@@ -1,4 +1,3 @@
-import { PublicLayout } from "../components/PublicLayout";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { CORE_SERVICES, SPECIALIZATIONS } from "../data/content";
@@ -21,7 +20,7 @@ export default function ServicesPage() {
   const { openDialog } = useLeadDialog();
 
   return (
-    <PublicLayout>
+    <div>
       <PageHeader
         overline="Our Landscaping & Maintenance Solutions"
         title="Design, Build & Care"
@@ -88,6 +87,6 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-    </PublicLayout>
+    </div>
   );
 }
