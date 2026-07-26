@@ -67,7 +67,7 @@ export const PublicLayout = ({ children }) => {
                 </li>
                 <li className="flex items-start gap-2.5">
                   <MapPin size={18} weight="fill" className="text-leaf shrink-0 mt-0.5" />
-                  <span>Ode, Anand, Gujarat, India</span>
+                  <span>Anand, Gujarat, India</span>
                 </li>
               </ul>
             </div>
