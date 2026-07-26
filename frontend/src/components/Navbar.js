@@ -5,7 +5,7 @@ import { useLeadDialog } from "../context/LeadDialogContext";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState("up"); // "up" or "down"
+  const [scrollDirection, setScrollDirection] = useState("up");
   const [isAtTop, setIsAtTop] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -16,13 +16,11 @@ export function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Check if at the top of the page
       if (currentScrollY <= 20) {
         setIsAtTop(true);
         setScrollDirection("up");
       } else {
         setIsAtTop(false);
-        // Detect scroll direction
         if (currentScrollY > lastScrollY && currentScrollY > 80) {
           setScrollDirection("down");
         } else if (currentScrollY < lastScrollY) {
@@ -52,38 +50,31 @@ export function Navbar() {
     return location.pathname.startsWith(path);
   };
 
-  // Visibility logic for mobile header (hide when scrolling down, show when scrolling up or menu is open)
   const isVisibleMobile = scrollDirection === "up" || mobileMenuOpen;
-
-  // Background styling logic:
-  // 1. At the top: subtle light water-type blur
-  // 2. Scrolling up (away from top) or menu open: darker frosted glass
-  // 3. Desktop scrolling down: stays light water blur
   const isDarkGlass = (!isAtTop && scrollDirection === "up") || mobileMenuOpen;
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        /* Mobile hide/show slide transform */
         isVisibleMobile ? "translate-y-0" : "-translate-y-full md:translate-y-0"
       } ${
-        /* Background & Blur switching */
         isDarkGlass
-          ? "bg-black/85 backdrop-blur-md border-b border-white/10 text-white shadow-lg"
-          : "bg-white/15 backdrop-blur-md border-b border-white/10 text-white"
+          ? "bg-black/85 backdrop-blur-md border-b border-white/10 text-white shadow-md"
+          : "bg-white/10 backdrop-blur-sm border-b border-white/10 text-white"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        {/* Brand Logo */}
+      {/* Reduced height on mobile: h-14 (56px) on mobile, h-20 on desktop */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-20 flex items-center justify-between">
+        {/* Logo */}
         <Link
           to="/"
           onClick={() => setMobileMenuOpen(false)}
-          className="flex items-center gap-2 text-xl font-black tracking-tight"
+          className="flex items-center gap-1.5 text-lg md:text-xl font-black tracking-tight"
         >
           <img
             src="/logo.png"
             alt="SK Logo"
-            className="h-9 w-auto object-contain"
+            className="h-7 md:h-9 w-auto object-contain"
             onError={(e) => {
               e.target.style.display = "none";
             }}
@@ -92,7 +83,7 @@ export function Navbar() {
           <span className="text-leaf">LANDSCAPING</span>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const active = isActive(link.path);
@@ -118,23 +109,23 @@ export function Navbar() {
           </button>
         </nav>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-white hover:text-leaf transition-colors focus:outline-none"
+          className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none"
           aria-label="Toggle Navigation"
         >
-          {mobileMenuOpen ? <X size={28} weight="bold" /> : <List size={28} weight="bold" />}
+          {mobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
         </button>
       </div>
 
-      {/* Mobile Top-to-Bottom Slide-Down Drawer */}
+      {/* Mobile Drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           mobileMenuOpen ? "max-h-96 opacity-100 border-t border-white/10" : "max-h-0 opacity-0"
-        } bg-black/95 backdrop-blur-xl px-6 py-4 space-y-4`}
+        } bg-black/95 backdrop-blur-xl px-5 py-4 space-y-3`}
       >
-        <nav className="flex flex-col space-y-3">
+        <nav className="flex flex-col space-y-2.5">
           {navLinks.map((link) => {
             const active = isActive(link.path);
             return (
@@ -142,7 +133,7 @@ export function Navbar() {
                 key={link.name}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-base font-bold tracking-wide transition-colors ${
+                className={`text-sm font-bold tracking-wide transition-colors ${
                   active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
                 }`}
               >
@@ -151,13 +142,13 @@ export function Navbar() {
             );
           })}
         </nav>
-        <div className="pt-2 pb-2">
+        <div className="pt-2">
           <button
             onClick={() => {
               setMobileMenuOpen(false);
               openDialog();
             }}
-            className="w-full py-3.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
+            className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
           >
             GET FREE QUOTE
           </button>
