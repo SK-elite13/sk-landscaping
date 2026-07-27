@@ -116,17 +116,22 @@ export function Home() {
         </div>
       </section>
 
-      {/* Core Services Section */}
+      {/* Core Services Section with Clean Top Right Alignment */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-leaf">PRIMARY SOLUTIONS</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-leaf">OUR SERVICES</p>
             <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
               Core Landscaping Services
             </h2>
           </div>
-          <Link to="/services" className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-forest hover:text-leaf transition-colors">
-            VIEW ALL SERVICES <ArrowRight size={16} />
+          <Link 
+            to="/services" 
+            className="shrink-0 pt-0.5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-forest hover:text-leaf transition-colors"
+          >
+            <span className="hidden sm:inline">VIEW ALL SERVICES</span>
+            <span className="sm:hidden">VIEW ALL</span>
+            <ArrowRight size={16} />
           </Link>
         </div>
 
