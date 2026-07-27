@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CaretDown, CaretRight, CaretLeft } from "@phosphor-icons/react";
+import { ArrowRight, CaretDown } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
 import { CORE_SERVICES } from "../data/servicesData";
 
@@ -11,49 +11,36 @@ function ServiceCardItem({ service }) {
 
   const displayImages = service.images && service.images.length > 0 ? service.images : [service.fallbackImage];
 
-  const handleNextImage = (e) => {
-    e.stopPropagation();
+  const handleNextImage = () => {
     setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
-  };
-
-  const handlePrevImage = (e) => {
-    e.stopPropagation();
-    setActiveImgIndex((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1));
   };
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-      <div className="relative h-52 w-full overflow-hidden bg-black/5">
+      {/* Tap Image Area to Cycle */}
+      <div 
+        onClick={displayImages.length > 1 ? handleNextImage : undefined}
+        className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
+      >
         <img
           src={displayImages[activeImgIndex]}
           alt={service.title}
           className="h-full w-full object-cover transition-all duration-300"
           onError={(e) => { e.target.src = service.fallbackImage; }}
         />
+        
+        {/* Bottom Pagination Dots Only */}
         {displayImages.length > 1 && (
-          <>
-            <button
-              onClick={handlePrevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 text-white hover:bg-black/70 backdrop-blur-sm z-10"
-              aria-label="Previous image"
-            >
-              <CaretLeft size={16} weight="bold" />
-            </button>
-            <button
-              onClick={handleNextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/40 text-white hover:bg-black/70 backdrop-blur-sm z-10"
-              aria-label="Next image"
-            >
-              <div className="animate-pulse">
-                <CaretRight size={16} weight="bold" />
-              </div>
-            </button>
-            <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
-              {displayImages.map((_, idx) => (
-                <span key={idx} className={`h-1.5 rounded-full transition-all ${idx === activeImgIndex ? "w-4 bg-leaf" : "w-1.5 bg-white/60"}`} />
-              ))}
-            </div>
-          </>
+          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
+            {displayImages.map((_, idx) => (
+              <span 
+                key={idx} 
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/70 shadow-sm"
+                }`} 
+              />
+            ))}
+          </div>
         )}
       </div>
 
