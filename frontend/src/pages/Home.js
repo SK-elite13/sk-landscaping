@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CaretDown } from "@phosphor-icons/react";
+import Marquee from "react-fast-marquee";
+import { 
+  ArrowRight, 
+  CaretDown, 
+  Plant, 
+  Sun, 
+  Tree, 
+  ShieldCheck, 
+  Phone, 
+  CalendarCheck, 
+  FileText, 
+  Wrench, 
+  ArrowsClockwise 
+} from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
 import { CORE_SERVICES } from "../data/servicesData";
 
@@ -17,7 +30,6 @@ function ServiceCardItem({ service }) {
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-      {/* Tap Image Area to Cycle */}
       <div 
         onClick={displayImages.length > 1 ? handleNextImage : undefined}
         className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
@@ -29,7 +41,6 @@ function ServiceCardItem({ service }) {
           onError={(e) => { e.target.src = service.fallbackImage; }}
         />
         
-        {/* Bottom Pagination Dots Only */}
         {displayImages.length > 1 && (
           <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
             {displayImages.map((_, idx) => (
@@ -74,20 +85,103 @@ export function Home() {
   const { openDialog } = useLeadDialog();
   const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
 
+  const tickerServices = [
+    "Landscape Design",
+    "Garden Maintenance",
+    "Lawn Care",
+    "Smart Irrigation",
+    "Living Vertical Walls",
+    "Mini Forests",
+    "Organic Kitchen Gardens",
+    "AMC Services"
+  ];
+
+  const whyUs = [
+    {
+      title: "Science Over Guesswork",
+      desc: "We select plants based on light, soil, and microclimate data, ensuring your plants survive long-term.",
+      icon: Plant
+    },
+    {
+      title: "Resource & Energy Efficient",
+      desc: "Our layouts conserve water, lower power consumption, and reduce long-term maintenance expenses.",
+      icon: Sun
+    },
+    {
+      title: "End-to-End Care",
+      desc: "From 2D master plans and plant selection to site setup and long-term care, we manage every phase.",
+      icon: Tree
+    },
+    {
+      title: "Data-Backed Maintenance",
+      desc: "Reliable, scheduled care to keep your ecosystem healthy and looking its best year-round.",
+      icon: ShieldCheck
+    }
+  ];
+
+  const processSteps = [
+    {
+      step: "01",
+      title: "Call Us",
+      desc: "Reach out by phone or WhatsApp to tell us what you need.",
+      icon: Phone
+    },
+    {
+      step: "02",
+      title: "Free Site Visit",
+      desc: "Our team inspects your space and understands your goals.",
+      icon: CalendarCheck
+    },
+    {
+      step: "03",
+      title: "Custom Proposal",
+      desc: "You receive a detailed, tailored plan and transparent quote.",
+      icon: FileText
+    },
+    {
+      step: "04",
+      title: "Work Starts",
+      desc: "Our crew brings the design to life with precision.",
+      icon: Wrench
+    },
+    {
+      step: "05",
+      title: "Ongoing Maintenance",
+      desc: "We keep your landscape flourishing season after season.",
+      icon: ArrowsClockwise
+    }
+  ];
+
   const faqs = [
     {
-      q: "What areas do you serve in Gujarat?",
-      a: "We primarily serve Anand, Nadiad, Vadodara, Kheda, and surrounding regions in Central Gujarat.",
+      q: "Do you offer a free site visit?",
+      a: "Yes. We provide a complimentary site inspection where we assess your space, understand your needs and advise on the best approach, with no obligation."
     },
     {
-      q: "What is included in an AMC (Annual Maintenance Contract)?",
-      a: "Our AMC covers regular pruning, lawn mowing, soil fertilization, pest control, irrigation checks, and plant replacements.",
+      q: "What areas do you serve?",
+      a: "We are based in Ode, Anand, Gujarat and serve homes, bungalows, farmhouses, societies, villas, commercial properties, schools and industries across the region."
     },
+    {
+      q: "What is an AMC (Annual Maintenance Contract)?",
+      a: "An AMC is a yearly plan with scheduled maintenance visits, mowing, trimming, plant health checks, irrigation care and more, so your garden stays pristine without you lifting a finger."
+    },
+    {
+      q: "How do you price your projects?",
+      a: "Pricing depends on the scope, area and services required. After the free site visit we share a transparent, itemised quotation so you know exactly what to expect."
+    },
+    {
+      q: "Do you handle both design and maintenance?",
+      a: "Absolutely. We design and build new landscapes and also maintain existing gardens through one-time services or ongoing contracts."
+    },
+    {
+      q: "How soon can you start?",
+      a: "Once the proposal is approved, we schedule the work at the earliest available slot and always aim for timely completion."
+    }
   ];
 
   return (
     <div className="space-y-16 pb-16">
-      {/* Hero Section */}
+      {/* 1. Hero Section */}
       <section className="relative min-h-[85vh] flex items-end bg-ink text-white pb-16 pt-6 md:pt-12 px-5 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src={HERO_IMG} alt="Landscaping and garden design" className="w-full h-full object-cover" />
@@ -116,13 +210,49 @@ export function Home() {
         </div>
       </section>
 
-      {/* Core Services Section with Clean Top Right Alignment */}
+      {/* 2. Moving Service Names Line (Marquee) */}
+      <div className="bg-forest py-3 border-y border-white/10 text-white shadow-inner">
+        <Marquee speed={40} gradient={false}>
+          {tickerServices.map((item, index) => (
+            <div key={index} className="flex items-center mx-6 text-xs md:text-sm font-bold uppercase tracking-widest">
+              <span className="text-leaf mr-3">✦</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </Marquee>
+      </div>
+
+      {/* 3. Why SK Landscaping */}
+      <section className="max-w-7xl mx-auto px-5 md:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-xs font-bold uppercase tracking-widest text-leaf">THE SK DIFFERENCE</p>
+          <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Why SK Landscaping?
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {whyUs.map((item, idx) => {
+            const IconComp = item.icon;
+            return (
+              <div key={idx} className="p-6 bg-white rounded-2xl border border-black/5 shadow-sm space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-sage/30 flex items-center justify-center text-forest">
+                  <IconComp size={22} weight="bold" />
+                </div>
+                <h3 className="font-heading text-base font-bold text-ink">{item.title}</h3>
+                <p className="text-xs text-ink/70 leading-relaxed">{item.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 4. Core Landscaping Services */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-leaf">OUR SERVICES</p>
             <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-              Core Services
+              Core Landscaping Services
             </h2>
           </div>
           <Link 
@@ -142,24 +272,89 @@ export function Home() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* 5. How It Works */}
+      <section className="bg-sage/10 py-16 border-y border-black/5">
+        <div className="max-w-7xl mx-auto px-5 md:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <p className="text-xs font-bold uppercase tracking-widest text-leaf">OUR PROCESS</p>
+            <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              How It Works
+            </h2>
+            <p className="mt-2 text-sm text-ink/70">
+              From first call to a garden that thrives.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {processSteps.map((step, idx) => {
+              const IconComp = step.icon;
+              return (
+                <div key={idx} className="relative p-6 bg-white rounded-2xl border border-black/5 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-heading text-2xl font-black text-leaf">{step.step}</span>
+                      <div className="w-8 h-8 rounded-lg bg-sand flex items-center justify-center text-forest">
+                        <IconComp size={18} weight="bold" />
+                      </div>
+                    </div>
+                    <h3 className="font-heading text-base font-bold text-ink">{step.title}</h3>
+                    <p className="mt-2 text-xs text-ink/70 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Short About Us Area */}
+      <section className="max-w-7xl mx-auto px-5 md:px-8">
+        <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-black">
+              Engineering Green Ecosystems Across Gujarat
+            </h2>
+            <p className="text-xs md:text-sm text-white/80 leading-relaxed">
+              Based in Ode, Anand, SK Landscaping brings technical precision and sustainable practices to landscape execution. We believe outdoor spaces should be engineered for climate resilience so your investments last.
+            </p>
+            <div className="pt-2">
+              <Link 
+                to="/about" 
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all"
+              >
+                Learn More About Us <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 aspect-video shadow-md">
+            <img 
+              src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop" 
+              alt="SK Landscaping Team Work" 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Questions (Frequently Asked) */}
       <section className="max-w-4xl mx-auto px-5 md:px-8">
         <div className="text-center mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-leaf">QUESTIONS</p>
           <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            Frequently Asked Questions
+            Frequently Asked
           </h2>
         </div>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <details key={index} className="group bg-white p-5 rounded-2xl border border-ink/5 shadow-sm">
-              <summary className="flex cursor-pointer items-center justify-between text-ink font-bold text-sm">
+              <summary className="flex cursor-pointer items-center justify-between text-ink font-bold text-sm md:text-base">
                 <span>{faq.q}</span>
                 <span className="shrink-0 rounded-full bg-sand p-1 text-ink group-open:-rotate-180 transition-transform">
                   <CaretDown size={18} />
                 </span>
               </summary>
-              <p className="mt-4 text-xs text-ink/70 leading-relaxed">{faq.a}</p>
+              <p className="mt-4 text-xs md:text-sm text-ink/70 leading-relaxed">{faq.a}</p>
             </details>
           ))}
         </div>
