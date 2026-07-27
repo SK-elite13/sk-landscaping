@@ -7,7 +7,7 @@ const PROJECT_CONCEPTS = [
     title: "Modern Villa Garden",
     category: "Residential Landscape Design",
     location: "Anand, Gujarat",
-    img: "https://images.pexels.com/photos/37429855/pexels-photo-37429855.png",
+    img: "/vertical-wall-1.png",
     status: "Upcoming Showcase"
   },
   {
