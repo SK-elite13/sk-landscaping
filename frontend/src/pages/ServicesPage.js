@@ -4,7 +4,7 @@ import { CORE_SERVICES, SPECIALIZATIONS } from "../data/content";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
 const SERVICE_IMGS = [
-  "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
+  "/Design-1.jpg",
   "https://images.unsplash.com/photo-1558904541-efa843a96f01",
   "https://images.unsplash.com/photo-1592417817098-8f3d6eb1626f",
   "https://images.unsplash.com/photo-1512428559087-560fa5ceab42",
