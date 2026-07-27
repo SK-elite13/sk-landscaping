@@ -122,7 +122,7 @@ export function Home() {
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-leaf">OUR SERVICES</p>
             <h2 className="mt-1 font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-              Core Landscaping Services
+              Core Services
             </h2>
           </div>
           <Link 
