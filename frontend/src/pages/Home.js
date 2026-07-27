@@ -1,8 +1,170 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight, CaretDown, CaretRight, CaretLeft } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
-import { SERVICES_DATA } from "../data/servicesData";
-import { ServiceCard } from "../components/ServiceCard";
+
+// Local Services Data with Multiple Images
+const LOCAL_SERVICES = [
+  {
+    id: "2d-landscape",
+    title: "2D Landscape Design & Plant Selection",
+    subtitle: "Data-backed master plans tailored to soil & microclimate.",
+    images: [
+      "/services/2d-design-1.jpg",
+      "/services/2d-design-2.jpg"
+    ],
+    fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
+    description: "We design functional master plans based on light mapping, soil analysis, and drainage factors before planting a single seed."
+  },
+  {
+    id: "site-development",
+    title: "Landscape Execution & Site Development",
+    subtitle: "Bringing layout concepts and green spaces to life.",
+    images: [
+      "/services/site-dev-1.jpg",
+      "/services/site-dev-2.jpg"
+    ],
+    fallbackImage: "https://images.unsplash.com/photo-1558904541-efa843a96f01",
+    description: "Complete ground preparation, hardscaping, turf laying, and plant installation executed to structural precision."
+  },
+  {
+    id: "garden-maintenance",
+    title: "Garden Maintenance & AMC Contracts",
+    subtitle: "Structured, scheduled care plans to maintain site health.",
+    images: [
+      "/services/maintenance-1.jpg",
+      "/services/maintenance-2.jpg"
+    ],
+    fallbackImage: "https://images.unsplash.com/photo-1592417817098-8f3d6eb23659",
+    description: "Regular pruning, lawn mowing, pest control, soil fertilization, and irrigation checks under flexible annual contracts."
+  },
+  {
+    id: "vertical-wall",
+    title: "Living Vertical Walls",
+    subtitle: "Space-saving vertical greenery with automated irrigation.",
+    images: [
+      "/services/vertical-wall-1.jpg",
+      "/services/vertical-wall-2.jpg"
+    ],
+    fallbackImage: "https://images.unsplash.com/photo-1534710961216-75c88202f43e",
+    description: "Durable modular plastic frames, drip irrigation setups, and flora selected for maximum vertical coverage."
+  }
+];
+
+// Self-contained Swipeable Card Component
+function ServiceCardItem({ service }) {
+  const { openDialog } = useLeadDialog();
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const displayImages =
+    service.images && service.images.length > 0
+      ? service.images
+      : [service.fallbackImage];
+
+  const handleNextImage = (e) => {
+    e.stopPropagation();
+    setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
+  };
+
+  const handlePrevImage = (e) => {
+    e.stopPropagation();
+    setActiveImgIndex((prev) =>
+      prev === 0 ? displayImages.length - 1 : prev - 1
+    );
+  };
+
+  return (
+    <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
+      {/* 1. Swipeable Image Gallery */}
+      <div className="relative h-56 w-full overflow-hidden bg-black/5">
+        <img
+          src={displayImages[activeImgIndex]}
+          alt={service.title}
+          className="h-full w-full object-cover transition-all duration-300"
+          onError={(e) => {
+            e.target.src = service.fallbackImage;
+          }}
+        />
+
+        {displayImages.length > 1 && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 text-white hover:bg-black/70 backdrop-blur-sm transition-all z-10"
+              aria-label="Previous image"
+            >
+              <CaretLeft size={16} weight="bold" />
+            </button>
+
+            <button
+              onClick={handleNextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/40 text-white hover:bg-black/70 backdrop-blur-sm transition-all z-10"
+              aria-label="Next image"
+            >
+              <div className="animate-pulse">
+                <CaretRight size={16} weight="bold" />
+              </div>
+            </button>
+
+            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+              {displayImages.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`h-1.5 rounded-full transition-all ${
+                    idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* 2. Content Body */}
+      <div className="p-5 flex flex-col justify-between flex-1 space-y-3">
+        <div>
+          <h3 className="font-heading text-lg font-bold text-ink leading-snug">
+            {service.title}
+          </h3>
+          <p className="mt-1 text-xs font-semibold text-leaf uppercase tracking-wider">
+            {service.subtitle}
+          </p>
+
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-3 flex items-center justify-between w-full py-2 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5"
+          >
+            <span>{isExpanded ? "Hide Details" : "Read Description"}</span>
+            <CaretDown
+              size={16}
+              className={`transition-transform duration-300 ${
+                isExpanded ? "rotate-180 text-forest" : ""
+              }`}
+            />
+          </button>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ${
+              isExpanded ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"
+            }`}
+          >
+            <p className="text-xs text-ink/70 leading-relaxed">
+              {service.description}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() => openDialog(service.title)}
+          className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+        >
+          Enquire Now
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function Home() {
   const { openDialog } = useLeadDialog();
@@ -60,7 +222,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* Services Section with Swipeable Image Cards */}
+      {/* Services Section */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="mb-8 flex items-center justify-between">
           <div>
@@ -78,8 +240,8 @@ export function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES_DATA.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+          {LOCAL_SERVICES.map((service) => (
+            <ServiceCardItem key={service.id} service={service} />
           ))}
         </div>
       </section>
