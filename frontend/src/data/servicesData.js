@@ -37,8 +37,8 @@ export const CORE_SERVICES = [
     id: "garden-maintenance",
     title: "Garden Maintenance & AMC",
     subtitle: "Reliable care for healthy landscapes",
-    images: ["/services/HERO_IMG-1.jpg"],
-    fallbackImage: "/services/HERO_IMG-1.jpg",
+    images: ["/services/maintenance-1.jpeg", "/services/maintenance-2.png", "/services/maintenance-3.jpg", ],
+    fallbackImage: "/services/maintenance-1.jpeg",
     description: "Regular maintenance solutions designed to keep your garden clean, healthy, and attractive throughout the year.",
     servicesOffered: [
       "Scheduled Garden Visits",
