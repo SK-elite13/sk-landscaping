@@ -1,11 +1,11 @@
-// Block 1: Core Services (Linked to Home Page & Services Page)
+// Block 1: Core Services (Home Page & Services Page)
 export const CORE_SERVICES = [
   {
     id: "landscape-design",
     title: "Landscape Design & Plant Selection",
     subtitle: "Thoughtful planning before plantation begins",
-    images: ["/services/2d-design-1.jpg", "/services/2d-design-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
+    images: ["/services/2d-design-1.jpg"],
+    fallbackImage: "/services/2d-design-1.jpg",
     description: "We create customized landscape plans by understanding your space, requirements, and maintenance expectations before starting the work.",
     servicesOffered: [
       "2D Landscape Planning",
@@ -19,8 +19,8 @@ export const CORE_SERVICES = [
     id: "landscape-execution",
     title: "Landscape Execution & Development",
     subtitle: "Bringing landscape ideas into reality",
-    images: ["/services/site-dev-1.jpg", "/services/site-dev-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1558904541-efa843a96f01",
+    images: ["/services/site-dev-1.jpg"],
+    fallbackImage: "/services/site-dev-1.jpg",
     description: "We provide landscape development solutions based on your project needs, from plantation to complete garden setup.",
     servicesOffered: [
       "Plant Plantation & Tree Installation",
@@ -37,8 +37,8 @@ export const CORE_SERVICES = [
     id: "garden-maintenance",
     title: "Garden Maintenance & AMC",
     subtitle: "Reliable care for healthy landscapes",
-    images: ["/services/maintenance-1.jpg", "/services/maintenance-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1592417817098-8f3d6eb23659",
+    images: ["/services/HERO_IMG-1.jpg"],
+    fallbackImage: "/services/HERO_IMG-1.jpg",
     description: "Regular maintenance solutions designed to keep your garden clean, healthy, and attractive throughout the year.",
     servicesOffered: [
       "Scheduled Garden Visits",
@@ -55,8 +55,8 @@ export const CORE_SERVICES = [
     id: "garden-renovation",
     title: "Garden Restoration & Renovation",
     subtitle: "Reviving old gardens with a fresh approach",
-    images: ["/services/renovation-1.jpg", "/services/renovation-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b",
+    images: ["/services/renovation-1.jpg"],
+    fallbackImage: "/services/renovation-1.jpg",
     description: "We improve existing landscapes by restoring unhealthy, overgrown, or outdated gardens and making them more functional and attractive.",
     servicesOffered: [
       "Heavy Garden Cleaning",
@@ -71,14 +71,14 @@ export const CORE_SERVICES = [
   }
 ];
 
-// Block 2: Special Landscape Solutions (Linked to Main Services Page)
+// Block 2: Specializations (Main Services Page)
 export const SPECIALIZATIONS = [
   {
     id: "balcony-terrace",
     title: "Interior, Balcony & Terrace Gardens",
     subtitle: "Green spaces designed for compact living",
-    images: ["/services/balcony-1.jpg", "/services/balcony-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1512424825106-cc6a12a5dbed",
+    images: ["/services/terrace-1.png"],
+    fallbackImage: "/services/terrace-1.png",
     description: "We create beautiful indoor, balcony, and terrace gardens by selecting suitable plants, planters, and layouts according to available space, light conditions, and maintenance needs.",
     servicesOffered: [
       "Indoor Plant Setup",
@@ -91,8 +91,8 @@ export const SPECIALIZATIONS = [
     id: "living-wall",
     title: "Living Wall Garden",
     subtitle: "Vertical greenery for modern spaces",
-    images: ["/services/vertical-wall-1.jpg", "/services/vertical-wall-2.jpg", "/services/vertical-wall-3.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1534710961216-75c88202f43e",
+    images: ["/services/vertical-wall-1.jpg"],
+    fallbackImage: "/services/vertical-wall-1.jpg",
     description: "We design and develop vertical garden solutions that add greenery to areas where traditional gardens are not possible.",
     servicesOffered: [
       "Vertical Garden Design",
@@ -106,8 +106,8 @@ export const SPECIALIZATIONS = [
     id: "kitchen-garden",
     title: "Organic Kitchen Gardens",
     subtitle: "Fresh homegrown produce from your own garden",
-    images: ["/services/kitchen-garden-1.jpg", "/services/kitchen-garden-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
+    images: ["/services/kitchen-garden-1.jpg"],
+    fallbackImage: "/services/kitchen-garden-1.jpg",
     description: "We develop practical kitchen gardens that allow you to grow vegetables, herbs, and edible plants at home with proper planning and care.",
     servicesOffered: [
       "Raised Vegetable Beds",
@@ -121,8 +121,8 @@ export const SPECIALIZATIONS = [
     id: "fruit-orchards",
     title: "Fruit Orchards",
     subtitle: "Planned orchards for long term growth",
-    images: ["/services/orchard-1.jpg", "/services/orchard-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
+    images: ["/services/orchard-1.jpg"],
+    fallbackImage: "/services/orchard-1.jpg",
     description: "We help create productive fruit orchards with suitable plant selection, spacing, plantation planning, and irrigation solutions.",
     servicesOffered: [
       "Fruit Tree Plantation",
@@ -137,8 +137,8 @@ export const SPECIALIZATIONS = [
     id: "mini-forests",
     title: "Mini Forests & Native Plantation",
     subtitle: "Creating greener natural environments",
-    images: ["/services/mini-forest-1.jpg", "/services/mini-forest-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+    images: ["/services/mini-forest-1.jpg"],
+    fallbackImage: "/services/mini-forest-1.jpg",
     description: "We develop dense plantation areas using suitable tree and plant species to create greener spaces for farms, institutions, and large properties.",
     servicesOffered: [
       "Native Tree Plantation",
@@ -152,8 +152,8 @@ export const SPECIALIZATIONS = [
     id: "planters-supply",
     title: "Premium GRC, FRP & RCC Planters Supply",
     subtitle: "Durable planters for modern landscapes",
-    images: ["/services/planters-1.jpg", "/services/planters-2.jpg"],
-    fallbackImage: "https://images.unsplash.com/photo-1485955900006-10f4d324d411",
+    images: ["/services/planters-1.jpg", "/services/planters-2.png"],
+    fallbackImage: "/services/planters-1.jpg",
     description: "We provide decorative and durable planters that enhance outdoor and indoor landscapes for residential and commercial spaces.",
     servicesOffered: [
       "GRC Planters",
