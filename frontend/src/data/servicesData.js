@@ -1,8 +1,8 @@
 // Block 1: Core Services (Linked to Home Page & Services Page)
 export const CORE_SERVICES = [
   {
-    id: "2d-landscape",
-    title: "1. Landscape Design & Plant Selection",
+    id: "landscape-design",
+    title: "Landscape Design & Plant Selection",
     subtitle: "Thoughtful planning before plantation begins",
     images: ["/services/2d-design-1.jpg", "/services/2d-design-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
@@ -16,8 +16,8 @@ export const CORE_SERVICES = [
     ]
   },
   {
-    id: "site-development",
-    title: "2. Landscape Execution & Development",
+    id: "landscape-execution",
+    title: "Landscape Execution & Development",
     subtitle: "Bringing landscape ideas into reality",
     images: ["/services/site-dev-1.jpg", "/services/site-dev-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1558904541-efa843a96f01",
@@ -35,7 +35,7 @@ export const CORE_SERVICES = [
   },
   {
     id: "garden-maintenance",
-    title: "3. Garden Maintenance & AMC",
+    title: "Garden Maintenance & AMC",
     subtitle: "Reliable care for healthy landscapes",
     images: ["/services/maintenance-1.jpg", "/services/maintenance-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1592417817098-8f3d6eb23659",
@@ -53,7 +53,7 @@ export const CORE_SERVICES = [
   },
   {
     id: "garden-renovation",
-    title: "4. Garden Restoration & Renovation",
+    title: "Garden Restoration & Renovation",
     subtitle: "Reviving old gardens with a fresh approach",
     images: ["/services/renovation-1.jpg", "/services/renovation-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b",
@@ -75,7 +75,7 @@ export const CORE_SERVICES = [
 export const SPECIALIZATIONS = [
   {
     id: "balcony-terrace",
-    title: "1. Interior, Balcony & Terrace Gardens",
+    title: "Interior, Balcony & Terrace Gardens",
     subtitle: "Green spaces designed for compact living",
     images: ["/services/balcony-1.jpg", "/services/balcony-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1512424825106-cc6a12a5dbed",
@@ -89,7 +89,7 @@ export const SPECIALIZATIONS = [
   },
   {
     id: "living-wall",
-    title: "2. Living Wall Garden",
+    title: "Living Wall Garden",
     subtitle: "Vertical greenery for modern spaces",
     images: ["/services/vertical-wall-1.jpg", "/services/vertical-wall-2.jpg", "/services/vertical-wall-3.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1534710961216-75c88202f43e",
@@ -104,7 +104,7 @@ export const SPECIALIZATIONS = [
   },
   {
     id: "kitchen-garden",
-    title: "3. Organic Kitchen Gardens",
+    title: "Organic Kitchen Gardens",
     subtitle: "Fresh homegrown produce from your own garden",
     images: ["/services/kitchen-garden-1.jpg", "/services/kitchen-garden-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
@@ -119,7 +119,7 @@ export const SPECIALIZATIONS = [
   },
   {
     id: "fruit-orchards",
-    title: "4. Fruit Orchards",
+    title: "Fruit Orchards",
     subtitle: "Planned orchards for long term growth",
     images: ["/services/orchard-1.jpg", "/services/orchard-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9",
@@ -135,7 +135,7 @@ export const SPECIALIZATIONS = [
   },
   {
     id: "mini-forests",
-    title: "5. Mini Forests & Native Plantation",
+    title: "Mini Forests & Native Plantation",
     subtitle: "Creating greener natural environments",
     images: ["/services/mini-forest-1.jpg", "/services/mini-forest-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
@@ -150,7 +150,7 @@ export const SPECIALIZATIONS = [
   },
   {
     id: "planters-supply",
-    title: "6. Premium GRC, FRP & RCC Planters Supply",
+    title: "Premium GRC, FRP & RCC Planters Supply",
     subtitle: "Durable planters for modern landscapes",
     images: ["/services/planters-1.jpg", "/services/planters-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1485955900006-10f4d324d411",
