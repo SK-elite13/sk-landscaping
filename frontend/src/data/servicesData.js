@@ -1,40 +1,40 @@
-// Block 1: Core Services (Linked to both Home & Services page)
+// Block 1: Core Services (Linked to Home & Services Page)
 export const CORE_SERVICES = [
   {
     id: "2d-landscape",
-    title: "2D Landscape Design & Plant Selection",
-    subtitle: "Data-backed master plans tailored to soil & microclimate.",
+    title: "2D Landscape Design and Plant Selection",
+    subtitle: "Master plans tailored to site soil and microclimate",
     images: ["/services/2d-design-1.jpg", "/services/2d-design-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
-    description: "Customized master plans tailored to your site's soil, light, and climate data before execution."
+    description: "Custom layouts mapped to your site conditions before any work starts."
   },
   {
     id: "site-development",
-    title: "Landscape Execution & Site Development",
-    subtitle: "Bringing layout concepts and green spaces to life.",
+    title: "Landscape Development and Execution",
+    subtitle: "Bringing garden concepts to life",
     images: ["/services/site-dev-1.jpg", "/services/site-dev-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1558904541-efa843a96f01",
-    description: "Professional installation bringing layout concepts, hardscaping, turf, and plantation to life."
+    description: "Full installation covering hardscaping, turf laying, and targeted plantation."
   },
   {
     id: "garden-maintenance",
-    title: "Garden Maintenance & AMC Contracts",
-    subtitle: "Structured care plans to maintain long-term site health.",
+    title: "Garden Maintenance and AMC Contracts",
+    subtitle: "Structured care plans for long term site health",
     images: ["/services/maintenance-1.jpg", "/services/maintenance-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1592417817098-8f3d6eb23659",
-    description: "Regular pruning, lawn mowing, pest control, soil fertilization, and irrigation checks under flexible annual contracts."
+    description: "Scheduled pruning, mowing, pest control, fertilization, compost application, and irrigation checks."
   },
   {
     id: "seasonal-supply",
-    title: "Seasonal Plant Supply & Upgrades",
-    subtitle: "Fresh plant additions selected specifically for seasonal conditions.",
+    title: "Seasonal Plant Supply and Upgrades",
+    subtitle: "Fresh additions selected for Gujarat weather",
     images: ["/services/seasonal-1.jpg", "/services/seasonal-2.jpg"],
     fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b",
-    description: "Fresh, healthy plant additions selected specifically for Gujarat's seasonal weather shifts."
+    description: "Healthy seasonal plants chosen specifically to handle local weather shifts."
   }
 ];
 
-// Block 2: Specializations (Linked ONLY to main Services page)
+// Block 2: Specializations (Linked ONLY to main Services Page)
 export const SPECIALIZATIONS = [
   {
     id: "balcony-terrace",
