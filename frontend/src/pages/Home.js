@@ -95,23 +95,23 @@ export function Home() {
 
   const whyUs = [
     { 
-      title: "Science Over Guesswork", 
-      desc: "We select plants based on light, soil, and microclimate data so they survive long term.", 
+      title: "Built to Last", 
+      desc: "We believe landscapes should continue growing healthier over time instead of becoming a recurring replacement expense. Our focus is on creating gardens that provide long term value.", 
       icon: Plant 
     },
     { 
-      title: "Resource Efficient", 
-      desc: "Our layouts conserve water and lower your monthly upkeep expenses.", 
+      title: "Thoughtful Planning", 
+      desc: "Every project begins with understanding the site, selecting suitable plants, and designing a layout that fits the available space, maintenance requirements, and your budget.", 
       icon: Sun 
     },
     { 
-      title: "End to End Care", 
-      desc: "We handle everything from master plans to on site execution and daily care.", 
+      title: "Complete Landscape Solutions", 
+      desc: "From landscape design and plantation to irrigation planning and long term maintenance, we help you through every stage of your landscape.", 
       icon: Tree 
     },
     { 
-      title: "Data Backed AMC", 
-      desc: "Scheduled visits that keep your entire ecosystem healthy in every season.", 
+      title: "Reliable Maintenance", 
+      desc: "A healthy landscape needs regular care. Our AMC services keep gardens clean, healthy, and attractive throughout every season.", 
       icon: ShieldCheck 
     }
   ];
@@ -303,10 +303,10 @@ export function Home() {
           <div className="space-y-4">
             <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
             <h2 className="font-heading text-3xl md:text-4xl font-black">
-              Sustainable Landscapes Built for Gujarat
+              Landscapes Designed to Last
             </h2>
             <p className="text-xs md:text-sm text-white/80 leading-relaxed">
-              Based in Anand, SK Landscaping brings technical precision and practical care to residential and industrial sites across Central Gujarat.
+              At SK Landscaping, we believe great landscapes are created through thoughtful planning, suitable plant selection, and reliable maintenance. Based in Anand, we provide landscape design, development, plantation, and long term garden care for residential, commercial, and industrial properties across Central Gujarat.
             </p>
             <div className="pt-2">
               <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
