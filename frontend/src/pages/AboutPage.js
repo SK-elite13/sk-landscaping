@@ -1,3 +1,4 @@
+import React from "react";
 import { PageHeader } from "../components/PageHeader";
 import { Reveal } from "../components/Reveal";
 import { useLeadDialog } from "../context/LeadDialogContext";
@@ -7,65 +8,87 @@ export default function AboutPage() {
 
   return (
     <div>
+      {/* 1. Page Header (Top Banner) */}
       <PageHeader
         overline="About SK LANDSCAPING"
-        title="Precision Landscaping Built to Last"
-        subtitle="Data-driven, energy-efficient green space engineering for residential, commercial, and industrial clients."
+        title="Landscapes Designed to Last"
+        subtitle="Thoughtfully planned landscape design, development, and maintenance for residential, commercial, and industrial properties across Central Gujarat."
         image="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1600&auto=format&fit=crop"
       />
 
-      {/* Story & Vision */}
-      <section className="py-20 mx-auto max-w-7xl px-5 md:px-8">
+      {/* 2. Story & Our Approach */}
+      <section className="py-16 md:py-20 mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">Our Story</p>
-            <h2 className="mt-2 font-heading text-3xl font-black text-ink sm:text-4xl">Science Over Guesswork</h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              Welcome to SK LANDSCAPING. We are a data-driven landscaping firm dedicated to creating energy-efficient, resilient green spaces for residential, commercial, and industrial sites.
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">
+              Our Story
             </p>
-            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              We believe a garden should be built to last, not constantly replaced. Drawing on technical precision and an energy-conscious approach, we eliminate the common cycle of plant failure that costs clients time and money.
+            <h2 className="mt-2 font-heading text-3xl font-black text-ink sm:text-4xl">
+              Every Great Landscape Starts With Thoughtful Planning
+            </h2>
+            <p className="mt-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+              SK LANDSCAPING was founded with a simple belief that a beautiful landscape should continue growing healthier over time, not become a recurring replacement expense. We create outdoor spaces that are practical, attractive, and easy to maintain for homes, businesses, industries, and institutions.
+            </p>
+            <p className="mt-3 text-sm md:text-base leading-relaxed text-muted-foreground">
+              Instead of using the same approach everywhere, we study each site before selecting plants or preparing a layout. Every project helps us improve our knowledge, refine our methods, and deliver landscapes that provide long-term value to our clients.
             </p>
           </Reveal>
 
+          {/* 3. Our Approach Card */}
           <Reveal delay={0.2}>
             <div className="overflow-hidden rounded-3xl border border-black/5 bg-sage/20 p-8 shadow-sm">
-              <h3 className="font-heading text-xl font-bold text-ink">Our Approach: Driven by Data</h3>
+              <h3 className="font-heading text-xl font-bold text-ink">
+                Our Approach
+              </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Every site has unique light, wind, and soil conditions. Using our proprietary database of climate-specific plants, we pair the exact right species to your specific location. The result is a vibrant landscape engineered for long-term growth.
+                Every property is different. Before starting any project, we understand the available space, sunlight, site usage, maintenance requirements, and budget. This helps us recommend suitable plants and create landscapes that remain healthy, practical, and beautiful for years.
               </p>
               <button
-                onClick={() => openDialog()}
-                className="mt-6 rounded-full bg-forest px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-transform hover:scale-105"
+                onClick={() => openDialog("About Page Site Visit")}
+                className="mt-6 rounded-xl bg-forest px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:bg-leaf"
               >
-                Schedule Site Analysis
+                Schedule Site Visit
               </button>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="py-20 bg-sage/10 border-t border-black/5">
+      {/* 4. Vision & Mission Section */}
+      <section className="py-16 md:py-20 bg-sage/10 border-t border-black/5">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid gap-8 md:grid-cols-2">
+            {/* Vision Card */}
             <Reveal>
-              <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Forward Thinking</p>
-                <h3 className="mt-2 font-heading text-2xl font-bold text-ink">Our Vision</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  To lead the transition toward zero-waste, energy-efficient, and scientifically managed green ecosystems across urban, commercial, and industrial landscapes.
-                </p>
+              <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm flex flex-col justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">
+                    Looking Ahead
+                  </p>
+                  <h3 className="mt-2 font-heading text-2xl font-bold text-ink">
+                    Our Vision
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    To become one of Gujarat's trusted landscaping companies by continuously improving our knowledge, services, and methods while creating sustainable outdoor spaces that remain beautiful for years.
+                  </p>
+                </div>
               </div>
             </Reveal>
 
+            {/* Mission Card */}
             <Reveal delay={0.1}>
-              <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">Core Purpose</p>
-                <h3 className="mt-2 font-heading text-2xl font-bold text-ink">Our Mission</h3>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  To eliminate plant failure through precision planning, microclimate mapping, and data-backed plant selection, delivering beautiful green spaces engineered for high survival.
-                </p>
+              <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm flex flex-col justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">
+                    Our Purpose
+                  </p>
+                  <h3 className="mt-2 font-heading text-2xl font-bold text-ink">
+                    Our Mission
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    To design, develop, and maintain landscapes through thoughtful planning, suitable plant selection, quality workmanship, and reliable maintenance that delivers lasting value to every client.
+                  </p>
+                </div>
               </div>
             </Reveal>
           </div>
