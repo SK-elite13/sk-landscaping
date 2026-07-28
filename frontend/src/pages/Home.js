@@ -17,7 +17,7 @@ import {
 import { useLeadDialog } from "../context/LeadDialogContext";
 import { CORE_SERVICES } from "../data/servicesData";
 
-/* --- 1. Service Card Component --- */
+/* --- 1. Service Card Item with Services Offered Rendered --- */
 function ServiceCardItem({ service }) {
   const { openDialog } = useLeadDialog();
   const [activeImgIndex, setActiveImgIndex] = useState(0);
@@ -31,6 +31,7 @@ function ServiceCardItem({ service }) {
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
+      {/* Tap Image Area to Cycle */}
       <div 
         onClick={displayImages.length > 1 ? handleNextImage : undefined}
         className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
@@ -60,6 +61,7 @@ function ServiceCardItem({ service }) {
         <div>
           <h3 className="font-heading text-base font-bold text-ink leading-snug">{service.title}</h3>
           <p className="mt-1 text-[11px] font-semibold text-leaf uppercase tracking-wider">{service.subtitle}</p>
+          
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="mt-2 flex items-center justify-between w-full py-1.5 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5"
@@ -67,10 +69,31 @@ function ServiceCardItem({ service }) {
             <span>{isExpanded ? "Hide Details" : "Read Description"}</span>
             <CaretDown size={14} className={`transition-transform duration-300 ${isExpanded ? "rotate-180 text-forest" : ""}`} />
           </button>
-          <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? "max-h-36 opacity-100 mt-2" : "max-h-0 opacity-0"}`}>
-            <p className="text-xs text-ink/70 leading-relaxed">{service.description}</p>
+
+          <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? "max-h-[500px] opacity-100 mt-2" : "max-h-0 opacity-0"}`}>
+            <p className="text-xs text-ink/70 leading-relaxed">
+              {service.description}
+            </p>
+
+            {/* Render Services Offered List */}
+            {service.servicesOffered && service.servicesOffered.length > 0 && (
+              <div className="mt-3 pt-3 border-t border-black/5">
+                <p className="text-[11px] font-bold text-forest uppercase tracking-wider mb-2">
+                  Services Offered:
+                </p>
+                <ul className="space-y-1">
+                  {service.servicesOffered.map((item, idx) => (
+                    <li key={idx} className="flex items-center text-xs text-ink/80">
+                      <span className="w-1.5 h-1.5 rounded-full bg-leaf mr-2 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
+
         <button
           onClick={() => openDialog(service.title)}
           className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
@@ -178,7 +201,7 @@ export function Home() {
 
   return (
     <div className="pb-16 space-y-16">
-      {/* 1. Hero Section & Moving Ticker Combo */}
+      {/* Hero Section & Ticker */}
       <div>
         <section className="relative min-h-[82vh] flex items-end bg-ink text-white pb-12 pt-6 md:pt-12 px-5 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -207,7 +230,6 @@ export function Home() {
           </div>
         </section>
 
-        {/* 2. Moving Ticker Line */}
         <div className="bg-black/90 backdrop-blur-md py-3.5 border-y border-white/10 text-white shadow-xl">
           <Marquee speed={45} gradient={false}>
             {tickerServices.map((item, index) => (
@@ -220,7 +242,7 @@ export function Home() {
         </div>
       </div>
 
-      {/* 3. Why SK Landscaping */}
+      {/* Why SK Landscaping */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="font-heading text-3xl font-bold tracking-tight text-ink sm:text-4xl">
@@ -243,7 +265,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 4. Core Services Section */}
+      {/* Core Services Section */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
@@ -265,7 +287,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 5. How It Works */}
+      {/* How It Works */}
       <section className="bg-sage/10 py-16 border-y border-black/5">
         <div className="max-w-7xl mx-auto px-5 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -297,7 +319,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 6. About Us Highlight Banner */}
+      {/* About Us Highlight Banner */}
       <section className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-4">
@@ -320,7 +342,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* 7. Frequently Asked Questions */}
+      {/* FAQ Section */}
       <section className="max-w-4xl mx-auto px-5 md:px-8">
         <div className="text-center mb-10">
           <p className="text-xs font-bold uppercase tracking-widest text-leaf">QUESTIONS</p>
