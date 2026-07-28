@@ -112,7 +112,7 @@ function ServiceCardItem({ service }) {
 
 /* --- 2. Main Home Page Component --- */
 export function Home() {
-  const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
+  const HERO_IMG = "/services/HERO_IMG-1.jpg";
 
   const handleHeroWhatsApp = () => {
     const phoneNumber = "919313082732";
@@ -289,28 +289,32 @@ export function Home() {
         </div>
       </section>
 
-      {/* About Us Highlight Banner */}
-      <section className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
-            <h2 className="font-heading text-3xl md:text-4xl font-black">
-              Landscapes Designed to Last
-            </h2>
-            <p className="text-xs md:text-sm text-white/80 leading-relaxed">
-              At SK Landscaping, we believe great landscapes are created through thoughtful planning, suitable plant selection, and reliable maintenance. Based in Anand, we provide landscape design, development, plantation, and long term garden care for residential, commercial, and industrial properties across Central Gujarat.
-            </p>
-            <div className="pt-2">
-              <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
-                Learn More About Us <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-          <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 aspect-video shadow-md">
-            <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop" alt="SK Landscaping" className="w-full h-full object-cover" />
-          </div>
-        </div>
-      </section>
+{/* About Us Highlight Banner */}
+<section className="max-w-7xl mx-auto px-5 md:px-8">
+  <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
+    <div className="space-y-4">
+      <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
+      <h2 className="font-heading text-3xl md:text-4xl font-black">
+        Landscapes Designed to Last
+      </h2>
+      <p className="text-xs md:text-sm text-white/80 leading-relaxed">
+        At SK Landscaping, we believe great landscapes are created through thoughtful planning, suitable plant selection, and reliable maintenance. Based in Anand, we provide landscape design, development, plantation, and long term garden care for residential, commercial, and industrial properties across Central Gujarat.
+      </p>
+      <div className="pt-2">
+        <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
+          Learn More About Us <ArrowRight size={16} />
+        </Link>
+      </div>
+    </div>
+    <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 aspect-video shadow-md">
+      <img 
+        src="/services/landscape-1.jpg" 
+        alt="SK Landscaping Work" 
+        className="w-full h-full object-cover" 
+      />
+    </div>
+  </div>
+</section>
 
       {/* FAQ Section */}
       <section className="max-w-4xl mx-auto px-5 md:px-8">
