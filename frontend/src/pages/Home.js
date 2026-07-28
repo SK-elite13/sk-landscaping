@@ -14,12 +14,10 @@ import {
   Wrench, 
   ArrowsClockwise 
 } from "@phosphor-icons/react";
-import { useLeadDialog } from "../context/LeadDialogContext";
 import { CORE_SERVICES } from "../data/servicesData";
 
-/* --- 1. Service Card Item with Services Offered Rendered --- */
+/* --- 1. Service Card Item with WhatsApp Direct Link --- */
 function ServiceCardItem({ service }) {
-  const { openDialog } = useLeadDialog();
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -29,9 +27,16 @@ function ServiceCardItem({ service }) {
     setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
   };
 
+  // WhatsApp Enquiry Action
+  const handleWhatsAppEnquiry = () => {
+    const phoneNumber = "919313082732"; // SK Landscaping phone number
+    const message = `Hi SK Landscaping! I'm interested in your service: *${service.title}*. I would like to schedule a site visit or get more information.`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+  };
+
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-      {/* Tap Image Area to Cycle */}
       <div 
         onClick={displayImages.length > 1 ? handleNextImage : undefined}
         className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
@@ -75,7 +80,6 @@ function ServiceCardItem({ service }) {
               {service.description}
             </p>
 
-            {/* Render Services Offered List */}
             {service.servicesOffered && service.servicesOffered.length > 0 && (
               <div className="mt-3 pt-3 border-t border-black/5">
                 <p className="text-[11px] font-bold text-forest uppercase tracking-wider mb-2">
@@ -94,9 +98,10 @@ function ServiceCardItem({ service }) {
           </div>
         </div>
 
+        {/* Updated Button to Trigger WhatsApp */}
         <button
-          onClick={() => openDialog(service.title)}
-          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+          onClick={handleWhatsAppEnquiry}
+          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
         >
           Enquire Now
         </button>
@@ -107,8 +112,13 @@ function ServiceCardItem({ service }) {
 
 /* --- 2. Main Home Page Component --- */
 export function Home() {
-  const { openDialog } = useLeadDialog();
   const HERO_IMG = "https://images.pexels.com/photos/13131147/pexels-photo-13131147.jpeg";
+
+  const handleHeroWhatsApp = () => {
+    const phoneNumber = "919313082732";
+    const message = "Hi SK Landscaping! I would like to schedule a site visit for my property.";
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+  };
 
   const tickerServices = [
     "Landscape Design", "Garden Maintenance", "Garden Renovation", 
@@ -140,68 +150,25 @@ export function Home() {
   ];
 
   const processSteps = [
-    { 
-      step: "01", 
-      title: "Call Us", 
-      desc: "Reach out by phone or WhatsApp to share your requirements.", 
-      icon: Phone 
-    },
-    { 
-      step: "02", 
-      title: "Site Visit", 
-      desc: "We inspect your location and review light, soil, and space conditions.", 
-      icon: CalendarCheck 
-    },
-    { 
-      step: "03", 
-      title: "Custom Proposal", 
-      desc: "You get a clear, itemized plan with upfront pricing.", 
-      icon: FileText 
-    },
-    { 
-      step: "04", 
-      title: "Work Starts", 
-      desc: "Our team executes the layout with technical precision.", 
-      icon: Wrench 
-    },
-    { 
-      step: "05", 
-      title: "Ongoing Care", 
-      desc: "We keep your site healthy season after season.", 
-      icon: ArrowsClockwise 
-    }
+    { step: "01", title: "Call Us", desc: "Reach out by phone or WhatsApp to share your requirements.", icon: Phone },
+    { step: "02", title: "Site Visit", desc: "We inspect your location and review light, soil, and space conditions.", icon: CalendarCheck },
+    { step: "03", title: "Custom Proposal", desc: "You get a clear, itemized plan with upfront pricing.", icon: FileText },
+    { step: "04", title: "Work Starts", desc: "Our team executes the layout with technical precision.", icon: Wrench },
+    { step: "05", title: "Ongoing Care", desc: "We keep your site healthy season after season.", icon: ArrowsClockwise }
   ];
 
   const faqs = [
-    { 
-      q: "Do you offer a site visit?", 
-      a: "Yes. We conduct an on site inspection to understand your space, soil, and light conditions before providing a proposal." 
-    },
-    { 
-      q: "What areas do you serve?", 
-      a: "Based in Anand, we serve Anand, Vadodara, Nadiad, and surrounding areas in Central Gujarat." 
-    },
-    { 
-      q: "What is an AMC?", 
-      a: "An Annual Maintenance Contract that covers scheduled pruning, lawn care, pest checks, compost, and ongoing garden upkeep." 
-    },
-    { 
-      q: "How do you price projects?", 
-      a: "All pricing is itemized and transparently quoted after our site inspection." 
-    },
-    { 
-      q: "Do you handle both design and care?", 
-      a: "Yes. We handle 2D design, landscape development, and long term maintenance." 
-    },
-    { 
-      q: "How soon can you start?", 
-      a: "Once you approve the quote, we schedule execution at the earliest open slot." 
-    }
+    { q: "Do you offer a site visit?", a: "Yes. We conduct an on site inspection to understand your space, soil, and light conditions before providing a proposal." },
+    { q: "What areas do you serve?", a: "Based in Anand, we serve Anand, Vadodara, Nadiad, and surrounding areas in Central Gujarat." },
+    { q: "What is an AMC?", a: "An Annual Maintenance Contract that covers scheduled pruning, lawn care, pest checks, compost, and ongoing garden upkeep." },
+    { q: "How do you price projects?", a: "All pricing is itemized and transparently quoted after our site inspection." },
+    { q: "Do you handle both design and care?", a: "Yes. We handle 2D design, landscape development, and long term maintenance." },
+    { q: "How soon can you start?", a: "Once you approve the quote, we schedule execution at the earliest open slot." }
   ];
 
   return (
     <div className="pb-16 space-y-16">
-      {/* Hero Section & Ticker */}
+      {/* Hero Section */}
       <div>
         <section className="relative min-h-[82vh] flex items-end bg-ink text-white pb-12 pt-6 md:pt-12 px-5 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -220,7 +187,10 @@ export function Home() {
               Turnkey Landscaping, Garden Care, Lawn Care, Plantation, and AMC Services
             </p>
             <div className="pt-2 flex flex-row items-center gap-3">
-              <button onClick={() => openDialog()} className="px-5 py-3 bg-forest hover:bg-leaf text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center gap-2">
+              <button 
+                onClick={handleHeroWhatsApp}
+                className="px-5 py-3 bg-forest hover:bg-leaf text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center gap-2"
+              >
                 SCHEDULE SITE VISIT <ArrowRight size={16} />
               </button>
               <a href="tel:+919313082732" className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl border border-white/20 backdrop-blur-md transition-all">
