@@ -1,5 +1,4 @@
-import { PageHeader } from "../components/PageHeader";
-import { Reveal } from "../components/Reveal";
+import { PageHeader } from "../components/PageHeader"
 import { LeadForm } from "../components/LeadForm";
 import { CONTACT, waLink, waSecondaryLink } from "../lib/api";
 import { Phone, WhatsappLogo, EnvelopeSimple, MapPin } from "@phosphor-icons/react";
@@ -14,7 +13,6 @@ export default function ContactPage() {
       />
       <section className="mx-auto max-w-7xl px-5 pb-24 md:px-8 md:pb-32" data-testid="contact-section">
         <div className="grid gap-12 lg:grid-cols-2">
-          <Reveal>
             <div className="space-y-4">
               {/* Call Us Card (Both Numbers) */}
               <div className="flex items-center gap-5 rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
@@ -91,9 +89,7 @@ export default function ContactPage() {
                 loading="lazy"
               />
             </div>
-          </Reveal>
 
-          <Reveal delay={0.1}>
             <div className="rounded-2xl border border-black/5 bg-white p-8 shadow-sm md:p-10">
               <h2 className="font-heading text-3xl font-black tracking-tight text-ink">Request a free site visit</h2>
               <p className="mt-2 text-base text-muted-foreground">We'll get back to you within 24 hours.</p>
@@ -101,7 +97,6 @@ export default function ContactPage() {
                 <LeadForm />
               </div>
             </div>
-          </Reveal>
         </div>
       </section>
     </div>
