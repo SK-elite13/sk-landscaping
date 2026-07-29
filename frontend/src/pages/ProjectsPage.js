@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { CaretLeft, CaretRight, ArrowRight, Play, Clock, X } from "@phosphor-icons/react";
 import { waLink } from "../lib/api";
 
@@ -98,6 +99,73 @@ export function ProjectsPage() {
     const msg = `Hi SK Landscaping! I saw your project: *${projectTitle}*. I would like to discuss a similar project for my property.`;
     window.open(waLink(msg), "_blank");
   };
+
+  // Lightbox element constructed via React Portal directly onto document.body
+  const lightboxModal = lightboxOpen
+    ? ReactDOM.createPortal(
+        <div 
+          onClick={closeLightbox}
+          className="fixed inset-0 z-[99999] bg-black/95 flex flex-col items-center justify-center p-4 select-none cursor-pointer"
+        >
+          {/* Top Close Button */}
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-[100000] p-2.5 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
+          >
+            <X size={22} weight="bold" />
+          </button>
+
+          {/* Left Navigation Arrow */}
+          {currentProjectMedia.length > 1 && (
+            <button
+              onClick={prevMedia}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-[100000] p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
+            >
+              <CaretLeft size={24} weight="bold" />
+            </button>
+          )}
+
+          {/* Active Media Container */}
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="relative max-w-4xl max-h-[80vh] w-full flex flex-col items-center justify-center cursor-default"
+          >
+            {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
+              <video
+                src={currentProjectMedia[activeMediaIndex].url}
+                controls
+                autoPlay
+                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
+              />
+            ) : (
+              <img
+                src={currentProjectMedia[activeMediaIndex]?.url}
+                alt="Project Fullview"
+                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
+              />
+            )}
+            
+            {/* Image Caption Label */}
+            {currentProjectMedia[activeMediaIndex]?.label && (
+              <div className="mt-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold text-center border border-white/10">
+                {currentProjectMedia[activeMediaIndex].label}
+              </div>
+            )}
+          </div>
+
+          {/* Right Navigation Arrow */}
+          {currentProjectMedia.length > 1 && (
+            <button
+              onClick={nextMedia}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-[100000] p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
+            >
+              <CaretRight size={24} weight="bold" />
+            </button>
+          )}
+        </div>,
+        document.body
+      )
+    : null;
 
   return (
     <div className="pb-16 pt-8 space-y-12 max-w-7xl mx-auto px-5 md:px-8">
@@ -229,69 +297,8 @@ export function ProjectsPage() {
         })}
       </div>
 
-      {/* Lightbox Modal for Fullscreen Media */}
-      {lightboxOpen && (
-        <div 
-          onClick={closeLightbox}
-          className="fixed top-0 left-0 w-screen h-screen z-[9999] bg-black/95 flex flex-col items-center justify-center p-4 select-none cursor-pointer"
-        >
-          {/* Top Close Button */}
-          <button 
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 z-[10000] p-2.5 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
-          >
-            <X size={22} weight="bold" />
-          </button>
-
-          {/* Left Navigation Arrow */}
-          {currentProjectMedia.length > 1 && (
-            <button
-              onClick={prevMedia}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-[10000] p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
-            >
-              <CaretLeft size={24} weight="bold" />
-            </button>
-          )}
-
-          {/* Active Media Container */}
-          <div 
-            onClick={(e) => e.stopPropagation()} 
-            className="relative max-w-4xl max-h-[80vh] w-full flex flex-col items-center justify-center cursor-default"
-          >
-            {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
-              <video
-                src={currentProjectMedia[activeMediaIndex].url}
-                controls
-                autoPlay
-                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
-              />
-            ) : (
-              <img
-                src={currentProjectMedia[activeMediaIndex]?.url}
-                alt="Project Fullview"
-                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
-              />
-            )}
-            
-            {/* Image Caption Label */}
-            {currentProjectMedia[activeMediaIndex]?.label && (
-              <div className="mt-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold text-center border border-white/10">
-                {currentProjectMedia[activeMediaIndex].label}
-              </div>
-            )}
-          </div>
-
-          {/* Right Navigation Arrow */}
-          {currentProjectMedia.length > 1 && (
-            <button
-              onClick={nextMedia}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-[10000] p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
-            >
-              <CaretRight size={24} weight="bold" />
-            </button>
-          )}
-        </div>
-      )}
+      {/* Render Portal directly to Body */}
+      {lightboxModal}
 
       {/* Bottom CTA Banner */}
       <section className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl text-center space-y-4">
