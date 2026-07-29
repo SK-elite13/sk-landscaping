@@ -61,3 +61,19 @@ html.lenis, html.lenis body { height: auto; }
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #EFEEE9; }
 ::-webkit-scrollbar-thumb { background: #2E7D32; border-radius: 10px; }
+
+/* Global Page Transition Animations */
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp 0.35s ease-out forwards;
+}
