@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { X, CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
 import { CONTACT, waLink } from "../lib/api";
 
@@ -65,11 +65,30 @@ export function ProjectsPage() {
     setCurrentProjectMedia(mediaList);
     setActiveMediaIndex(index);
     setLightboxOpen(true);
+    
+    // Push state into browser history so mobile back button closes modal
+    window.history.pushState({ lightbox: true }, "");
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
-  };
+    // If browser state was pushed for lightbox, go back to clear it
+    if (window.history.state?.lightbox) {
+      window.history.back();
+    }
+  }, []);
+
+  // Listen for Browser / Mobile Back Button Press
+  useEffect(() => {
+    const handlePopState = () => {
+      if (lightboxOpen) {
+        setLightboxOpen(false);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [lightboxOpen]);
 
   const nextMedia = (e) => {
     e.stopPropagation();
