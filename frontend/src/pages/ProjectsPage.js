@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
 import { waLink } from "../lib/api";
 
 /* --- Projects Data --- */
@@ -11,14 +11,14 @@ const PROJECTS_DATA = [
     siteType: "Industrial / Commercial Facility • Central Gujarat",
     description: "Comprehensive garden maintenance and upkeep for Raghav Pulse Processor. Our work focuses on scheduled pruning, turf care, organic soil nourishment, and hedge border trimming to ensure a crisp, welcoming corporate landscape year-round.",
     media: [
-      { type: "image", url: "/projects/project-1/project1-2.jpg" },
-      { type: "image", url: "/projects/project-1/project1-4.jpg" },
-      { type: "image", url: "/projects/project-1/project1-6.jpg" },
-      { type: "image", url: "/projects/project-1/project1-8.jpg" },
-      { type: "image", url: "/projects/project-1/project1-1.jpg" },
-      { type: "image", url: "/projects/project-1/project1-3.jpg" },
-      { type: "image", url: "/projects/project-1/project1-5.jpg" },
-      { type: "image", url: "/projects/project-1/project1-7.jpg" }
+      { type: "image", url: "/projects/project-1/project1-2.jpg", label: "After: Cleaned Boundary" },
+      { type: "image", url: "/projects/project-1/project1-4.jpg", label: "After: Pathway Pruning" },
+      { type: "image", url: "/projects/project-1/project1-6.jpg", label: "After: Restored Turf" },
+      { type: "image", url: "/projects/project-1/project1-8.jpg", label: "After: Shrub Shaping" },
+      { type: "image", url: "/projects/project-1/project1-1.jpg", label: "Before: Overgrown Hedge" },
+      { type: "image", url: "/projects/project-1/project1-3.jpg", label: "Before: Unpruned Perimeter" },
+      { type: "image", url: "/projects/project-1/project1-5.jpg", label: "Before: Patchy Grass" },
+      { type: "image", url: "/projects/project-1/project1-7.jpg", label: "Before: Dense Growth" }
     ]
   },
   {
@@ -66,20 +66,15 @@ export function ProjectsPage() {
     setActiveMediaIndex(index);
     setLightboxOpen(true);
 
-    // Push browser state so hardware back button can be intercepted
+    // Push state so phone's back button closes the popup
     window.history.pushState({ lightbox: true }, "");
   };
 
-  // Close lightbox through browser history step to maintain state sync
   const closeLightbox = () => {
-    if (window.history.state?.lightbox) {
-      window.history.back();
-    } else {
-      setLightboxOpen(false);
-    }
+    setLightboxOpen(false);
   };
 
-  // Listen for mobile back button / browser back gesture
+  // Listen for mobile hardware/gesture back button press
   useEffect(() => {
     const handlePopState = () => {
       setLightboxOpen(false);
@@ -234,20 +229,12 @@ export function ProjectsPage() {
         })}
       </div>
 
-      {/* Lightbox Modal for Fullscreen Media */}
+      {/* Lightbox Modal for Fullscreen Media (Cross button removed; click dark backdrop to close) */}
       {lightboxOpen && (
         <div 
           onClick={closeLightbox}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 select-none"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 select-none cursor-pointer"
         >
-          {/* Close Button */}
-          <button 
-            onClick={closeLightbox}
-            className="absolute top-5 right-5 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-          >
-            <X size={24} weight="bold" />
-          </button>
-
           {/* Left Navigation Arrow */}
           {currentProjectMedia.length > 1 && (
             <button
@@ -261,7 +248,7 @@ export function ProjectsPage() {
           {/* Active Media Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex flex-col items-center justify-center relative"
+            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex flex-col items-center justify-center relative cursor-default"
           >
             {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
               <video
@@ -276,6 +263,13 @@ export function ProjectsPage() {
                 alt="Project Fullview"
                 className="w-full h-full object-contain max-h-[85vh]"
               />
+            )}
+            
+            {/* Image Caption Label (renders for maintenance project photos) */}
+            {currentProjectMedia[activeMediaIndex]?.label && (
+              <div className="absolute bottom-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold">
+                {currentProjectMedia[activeMediaIndex].label}
+              </div>
             )}
           </div>
 
