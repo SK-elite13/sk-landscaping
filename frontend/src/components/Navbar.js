@@ -106,7 +106,7 @@ export function Navbar() {
           })}
           <button
             onClick={handleGetQuote}
-            className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
+            className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 cursor-pointer"
           >
             GET FREE QUOTE
           </button>
@@ -115,43 +115,49 @@ export function Navbar() {
         {/* Mobile Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none shrink-0"
+          className="md:hidden p-1.5 text-white hover:text-leaf transition-colors focus:outline-none shrink-0 cursor-pointer"
           aria-label="Toggle Navigation"
         >
           {mobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
         </button>
       </div>
 
-      {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-ink border-t border-white/10 px-5 py-4 space-y-3">
-          <nav className="flex flex-col space-y-2.5">
-            {navLinks.map((link) => {
-              const active = isActive(link.path);
-              return (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm font-bold tracking-wide transition-colors ${
-                    active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
-          </nav>
-          <div className="pt-2">
-            <button
-              onClick={handleGetQuote}
-              className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg active:scale-95"
-            >
-              GET FREE QUOTE
-            </button>
+      {/* Animated Mobile Menu Drawer (Smooth Slide-Down Effect) */}
+      <div
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out md:hidden border-t border-white/10 bg-ink ${
+          mobileMenuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 py-4 space-y-3">
+            <nav className="flex flex-col space-y-2.5">
+              {navLinks.map((link) => {
+                const active = isActive(link.path);
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-bold tracking-wide transition-colors ${
+                      active ? "text-leaf font-extrabold" : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+            </nav>
+            <div className="pt-2">
+              <button
+                onClick={handleGetQuote}
+                className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg active:scale-95 cursor-pointer"
+              >
+                GET FREE QUOTE
+              </button>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }
