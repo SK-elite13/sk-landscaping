@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import { useLeadDialog } from "../context/LeadDialogContext";
+import { waLink } from "../lib/api";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,6 +50,19 @@ export function Navbar() {
 
   const isVisible = scrollDirection === "up" || mobileMenuOpen;
 
+  // Handles Quote button click with direct WhatsApp fallback if dialog fails
+  const handleGetQuote = () => {
+    setMobileMenuOpen(false);
+    if (typeof openDialog === "function") {
+      openDialog();
+    } else {
+      window.open(
+        waLink("Hi SK Landscaping! I would like to get a free quote for my property."),
+        "_blank"
+      );
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 bg-ink border-b border-white/10 text-white transition-transform duration-300 ease-in-out ${
@@ -91,8 +105,8 @@ export function Navbar() {
             );
           })}
           <button
-            onClick={() => openDialog()}
-            className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+            onClick={handleGetQuote}
+            className="px-5 py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
           >
             GET FREE QUOTE
           </button>
@@ -130,11 +144,8 @@ export function Navbar() {
           </nav>
           <div className="pt-2">
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openDialog();
-              }}
-              className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
+              onClick={handleGetQuote}
+              className="w-full py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg active:scale-95"
             >
               GET FREE QUOTE
             </button>
