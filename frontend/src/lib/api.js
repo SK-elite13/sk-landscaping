@@ -14,12 +14,20 @@ export const CONTACT = {
   phone: "+91 93130 82732",
   phoneRaw: "+919313082732",
   whatsapp: "919313082732",
+
+  phoneSecondary: "+91 98765 43210",
+  phoneSecondaryRaw: "+919876543210",
+  whatsappSecondary: "919876543210",
+
   email: "sklandscaping.in@gmail.com",
   address: "Anand, Gujarat, India",
 };
 
 export const waLink = (msg = "Hi SK Landscaping, I'd like to know more about your services.") =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+export const waSecondaryLink = (msg = "Hi SK Landscaping, I'd like to know more about your services.") =>
+  `https://wa.me/${CONTACT.whatsappSecondary}?text=${encodeURIComponent(msg)}`;
 
 export const submitLead = async (formData) => {
   const response = await api.post('/leads', formData);
