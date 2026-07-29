@@ -1,6 +1,5 @@
 import React from "react";
 import { PageHeader } from "../components/PageHeader";
-import { Reveal } from "../components/Reveal";
 import { useLeadDialog } from "../context/LeadDialogContext";
 
 export default function AboutPage() {
@@ -19,7 +18,7 @@ export default function AboutPage() {
       {/* 2. Story & Our Approach */}
       <section className="py-16 md:py-20 mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal>
+          <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-forest">
               Our Story
             </p>
@@ -32,10 +31,10 @@ export default function AboutPage() {
             <p className="mt-3 text-sm md:text-base leading-relaxed text-muted-foreground">
               Instead of using the same approach everywhere, we study each site before selecting plants or preparing a layout. Every project helps us improve our knowledge, refine our methods, and deliver landscapes that provide long-term value to our clients.
             </p>
-          </Reveal>
+          </div>
 
           {/* 3. Our Approach Card */}
-          <Reveal delay={0.2}>
+          <div>
             <div className="overflow-hidden rounded-3xl border border-black/5 bg-sage/20 p-8 shadow-sm">
               <h3 className="font-heading text-xl font-bold text-ink">
                 Our Approach
@@ -45,12 +44,12 @@ export default function AboutPage() {
               </p>
               <button
                 onClick={() => openDialog("About Page Site Visit")}
-                className="mt-6 rounded-xl bg-forest px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:bg-leaf"
+                className="mt-6 rounded-xl bg-forest px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-md transition-all hover:bg-leaf cursor-pointer"
               >
                 Schedule Site Visit
               </button>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -59,7 +58,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="grid gap-8 md:grid-cols-2">
             {/* Vision Card */}
-            <Reveal>
+            <div>
               <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm flex flex-col justify-between">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">
@@ -73,10 +72,10 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </div>
 
             {/* Mission Card */}
-            <Reveal delay={0.1}>
+            <div>
               <div className="h-full rounded-2xl border border-black/5 bg-white p-8 shadow-sm flex flex-col justify-between">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-leaf">
@@ -90,7 +89,7 @@ export default function AboutPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
