@@ -18,7 +18,7 @@ function AnimatedRoutes() {
   return (
     <div
       key={location.pathname}
-      className="animate-fade-slide-up transition-all duration-300 ease-out"
+      className="animate-fade-slide-up"
     >
       <Routes location={location}>
         <Route path="/" element={<Home />} />
