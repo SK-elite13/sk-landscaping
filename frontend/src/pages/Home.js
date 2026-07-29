@@ -111,7 +111,7 @@ function ServiceCardItem({ service }) {
           
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-2 flex items-center justify-between w-full py-1.5 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5"
+            className="mt-2 flex items-center justify-between w-full py-1.5 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5 cursor-pointer"
           >
             <span>{isExpanded ? "Hide Details" : "Read Description"}</span>
             <CaretDown size={14} className={`transition-transform duration-300 ${isExpanded ? "rotate-180 text-forest" : ""}`} />
@@ -142,7 +142,7 @@ function ServiceCardItem({ service }) {
 
         <button
           onClick={handleWhatsAppEnquiry}
-          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
         >
           Enquire Now
         </button>
@@ -230,7 +230,7 @@ export function Home() {
             <div className="pt-2 flex flex-row items-center gap-3">
               <button 
                 onClick={handleHeroWhatsApp}
-                className="px-5 py-3 bg-forest hover:bg-leaf text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center gap-2"
+                className="px-5 py-3 bg-forest hover:bg-leaf text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center gap-2 cursor-pointer"
               >
                 SCHEDULE SITE VISIT <ArrowRight size={16} />
               </button>
