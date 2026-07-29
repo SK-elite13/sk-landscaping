@@ -15,9 +15,9 @@ export const CONTACT = {
   phoneRaw: "+919313082732",
   whatsapp: "919313082732",
 
-  phoneSecondary: "+91 98765 43210",
-  phoneSecondaryRaw: "+919876543210",
-  whatsappSecondary: "919876543210",
+  phoneSecondary: "+91 95108 40599",
+  phoneSecondaryRaw: "+919510840599",
+  whatsappSecondary: "919510840599",
 
   email: "sklandscaping.in@gmail.com",
   address: "Anand, Gujarat, India",
