@@ -2,19 +2,80 @@ import React, { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 import { CORE_SERVICES, SPECIALIZATIONS } from "../data/servicesData";
 
+/* --- Touch & Click Enabled Image Slider --- */
+function ImageSlider({ displayImages, fallbackImage, title }) {
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
+    }
+    if (isRightSwipe) {
+      setActiveImgIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+    }
+
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
+
+  const handleNextImage = () => {
+    setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
+  };
+
+  return (
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onClick={displayImages.length > 1 ? handleNextImage : undefined}
+      className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer select-none touch-pan-y"
+    >
+      <img
+        src={displayImages[activeImgIndex]}
+        alt={title}
+        className="h-full w-full object-cover transition-all duration-300 pointer-events-none"
+        onError={(e) => { e.target.src = fallbackImage; }}
+      />
+
+      {displayImages.length > 1 && (
+        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
+          {displayImages.map((_, idx) => (
+            <span
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/70 shadow-sm"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* --- Shared Service Card Component --- */
 function ServiceCard({ service, defaultBtnText = "Enquire Now" }) {
-  const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const displayImages =
     service.images && service.images.length > 0
       ? service.images
       : [service.fallbackImage];
-
-  const handleNextImage = () => {
-    setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
-  };
 
   // WhatsApp Direct Enquiry
   const handleWhatsAppEnquiry = () => {
@@ -25,33 +86,11 @@ function ServiceCard({ service, defaultBtnText = "Enquire Now" }) {
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-      {/* Tap Image to Cycle */}
-      <div
-        onClick={displayImages.length > 1 ? handleNextImage : undefined}
-        className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
-      >
-        <img
-          src={displayImages[activeImgIndex]}
-          alt={service.title}
-          className="h-full w-full object-cover transition-all duration-300"
-          onError={(e) => {
-            e.target.src = service.fallbackImage;
-          }}
-        />
-
-        {displayImages.length > 1 && (
-          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
-            {displayImages.map((_, idx) => (
-              <span
-                key={idx}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/70 shadow-sm"
-                }`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <ImageSlider 
+        displayImages={displayImages} 
+        fallbackImage={service.fallbackImage} 
+        title={service.title} 
+      />
 
       <div className="p-4 flex flex-col justify-between flex-1 space-y-3">
         <div>
