@@ -28,10 +28,10 @@ const PROJECTS_DATA = [
     siteType: "Commercial Facility Expansion • Gujarat",
     description: "Custom landscape architectural planning and 2D concepts engineered for commercial site development. The layout includes technical plant positioning based on sunlight exposure, automated drip irrigation mapping, hardscape pathways, and low-maintenance native plant selection suited for Central Gujarat climate.",
     media: [
-      { type: "image", url: "/projects/project-2/2d-design-1.jpg", label: "2D Masterplan Concept 1" },
-      { type: "image", url: "/projects/project-2/2d-design-2.jpg", label: "2D Masterplan Concept 2" },
-      { type: "image", url: "/projects/project-2/2d-design-3.jpg", label: "Plant Positioning & Zones" },
-      { type: "image", url: "/projects/project-2/2d-design-4.jpg", label: "Hardscape & Layout Detail" }
+      { type: "image", url: "/projects/project-2/2d-design-1.jpg", label: },
+      { type: "image", url: "/projects/project-2/2d-design-2.jpg", label: },
+      { type: "image", url: "/projects/project-2/2d-design-3.jpg", label: },
+      { type: "image", url: "/projects/project-2/2d-design-4.jpg", label: }
     ]
   },
   {
