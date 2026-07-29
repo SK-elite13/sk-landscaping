@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight, ArrowRight, Play, Clock, X } from "@phosphor-icons/react";
 import { waLink } from "../lib/api";
 
 /* --- Projects Data --- */
@@ -179,7 +179,7 @@ export function ProjectsPage() {
                           )}
 
                           {isFourthItem ? (
-                            <div className="absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
+                            <div className="absolute inset-0 bg-black/75 flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
                               <span className="text-xl font-extrabold">+{remainingCount + 1}</span>
                               <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All ({totalMedia})</span>
                             </div>
@@ -233,13 +233,21 @@ export function ProjectsPage() {
       {lightboxOpen && (
         <div 
           onClick={closeLightbox}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 select-none cursor-pointer"
+          className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-4 select-none cursor-pointer"
         >
+          {/* Top Close Button */}
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-50 p-2.5 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
+          >
+            <X size={22} weight="bold" />
+          </button>
+
           {/* Left Navigation Arrow */}
           {currentProjectMedia.length > 1 && (
             <button
               onClick={prevMedia}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
             >
               <CaretLeft size={24} weight="bold" />
             </button>
@@ -248,26 +256,26 @@ export function ProjectsPage() {
           {/* Active Media Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex flex-col items-center justify-center relative cursor-default"
+            className="relative max-w-4xl max-h-[80vh] w-full flex flex-col items-center justify-center cursor-default"
           >
             {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
               <video
                 src={currentProjectMedia[activeMediaIndex].url}
                 controls
                 autoPlay
-                className="max-w-full max-h-[85vh] rounded-2xl"
+                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
               />
             ) : (
               <img
                 src={currentProjectMedia[activeMediaIndex]?.url}
                 alt="Project Fullview"
-                className="w-full h-full object-contain max-h-[85vh]"
+                className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl"
               />
             )}
             
             {/* Image Caption Label */}
             {currentProjectMedia[activeMediaIndex]?.label && (
-              <div className="absolute bottom-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold">
+              <div className="mt-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold text-center border border-white/10">
                 {currentProjectMedia[activeMediaIndex].label}
               </div>
             )}
@@ -277,7 +285,7 @@ export function ProjectsPage() {
           {currentProjectMedia.length > 1 && (
             <button
               onClick={nextMedia}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors cursor-pointer"
             >
               <CaretRight size={24} weight="bold" />
             </button>
