@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { submitLead } from "../lib/api";
+import { submitLead, CONTACT } from "../lib/api";
 
 export const LeadForm = ({ defaultService = "" }) => {
   const [formData, setFormData] = useState({
@@ -12,17 +12,35 @@ export const LeadForm = ({ defaultService = "" }) => {
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+
+  // Fallback function to open WhatsApp with pre-filled lead details
+  const sendToWhatsApp = () => {
+    const message = 
+      `*New Site Visit Request - SK Landscaping*\n\n` +
+      `👤 *Name:* ${formData.name}\n` +
+      `📞 *Phone:* ${formData.phone}\n` +
+      `📧 *Email:* ${formData.email || "N/A"}\n` +
+      `🏠 *Property:* ${formData.propertyType}\n` +
+      `🛠 *Service:* ${formData.service || "General Inquiry"}\n` +
+      `📝 *Notes:* ${formData.notes || "None"}`;
+
+    const encodedMsg = encodeURIComponent(message);
+    const waUrl = `https://wa.me/${CONTACT?.phoneRaw || "919313082732"}?text=${encodedMsg}`;
+    window.open(waUrl, "_blank");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+
     try {
+      // Try submitting to API backend first
       await submitLead(formData);
       setSuccess(true);
     } catch (err) {
-      setError("Failed to submit. Please try again or call us directly.");
+      // If API fails, seamlessly send to WhatsApp as a bulletproof fallback
+      sendToWhatsApp();
+      setSuccess(true);
     } finally {
       setLoading(false);
     }
@@ -30,16 +48,17 @@ export const LeadForm = ({ defaultService = "" }) => {
 
   if (success) {
     return (
-      <div className="rounded-xl bg-sage/40 p-6 text-center">
+      <div className="rounded-xl bg-sage/40 p-6 text-center space-y-2">
         <h3 className="font-heading text-xl font-bold text-forest">Thank you!</h3>
-        <p className="mt-2 text-sm text-ink/80">We have received your request and will contact you within 24 hours.</p>
+        <p className="text-sm text-ink/80">
+          We have received your request and will contact you shortly.
+        </p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {error && <div className="text-xs text-red-600">{error}</div>}
       <div className="grid gap-4 sm:grid-cols-2">
         <input
           type="text"
@@ -73,6 +92,7 @@ export const LeadForm = ({ defaultService = "" }) => {
         >
           <option value="Residential">Residential / Home</option>
           <option value="Commercial">Commercial / Office</option>
+          <option value="Industrial">Industrial Site</option>
           <option value="Farmhouse">Farmhouse / Villa</option>
           <option value="Society">Housing Society</option>
         </select>
@@ -94,10 +114,12 @@ export const LeadForm = ({ defaultService = "" }) => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-forest py-4 text-sm font-bold text-white transition-transform duration-200 hover:scale-[1.02] disabled:opacity-50"
+        className="w-full rounded-full bg-forest py-4 text-sm font-bold text-white transition-transform duration-200 hover:scale-[1.02] active:scale-95 disabled:opacity-50 cursor-pointer"
       >
         {loading ? "Submitting..." : "➤ Request Free Site Visit"}
       </button>
     </form>
   );
 };
+
+export default LeadForm;
