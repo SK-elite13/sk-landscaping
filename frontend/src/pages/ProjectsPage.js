@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { X, CaretLeft, CaretRight, ArrowRight, Play } from "@phosphor-icons/react";
+import { X, CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
 
-/* --- Projects Data (Supports Photos & Videos) --- */
+/* --- Projects Data --- */
 const PROJECTS_DATA = [
   {
     id: "raghav-pulse-amc",
@@ -13,13 +13,7 @@ const PROJECTS_DATA = [
       { type: "image", url: "/services/HERO_IMG-1.jpg" },
       { type: "image", url: "/services/site-dev-1.jpg" },
       { type: "image", url: "/services/renovation-1.jpg" },
-      { type: "image", url: "/services/mini-forest-1.jpg" },
-      { type: "image", url: "/services/orchard-1.jpg" },
-      { type: "image", url: "/services/planters-1.jpg" },
-      { type: "image", url: "/services/terrace-1.png" },
-      { type: "image", url: "/services/vertical-wall-1.jpg" },
-      // Example of adding a video:
-      // { type: "video", url: "/services/mehdi-cutting.mp4", thumbnail: "/services/renovation-1.jpg" }
+      { type: "image", url: "/services/mini-forest-1.jpg" }
     ]
   },
   {
@@ -40,9 +34,7 @@ const PROJECTS_DATA = [
     siteType: "Central Gujarat Region",
     description: "Upcoming complete site development and landscape transformation for a local industrial manufacturing facility. Scope includes ground leveling, heavy soil enrichment, turf installation, and perimeter tree plantation.",
     isUpcoming: true,
-    media: [
-      { type: "image", url: "/services/site-dev-1.jpg" }
-    ]
+    comingSoonText: "SITE PREPARATION IN PROGRESS"
   },
   {
     id: "upcoming-hotel-landscape",
@@ -51,9 +43,7 @@ const PROJECTS_DATA = [
     siteType: "Central Gujarat Region",
     description: "Upcoming decorative commercial greening and landscape design concept for a hospitality space. Focuses on premium potted arrangements, feature lawns, and welcoming entrance foliage.",
     isUpcoming: true,
-    media: [
-      { type: "image", url: "/services/terrace-1.png" }
-    ]
+    comingSoonText: "CONCEPT & EXECUTION COMING SOON"
   }
 ];
 
@@ -64,6 +54,7 @@ export function ProjectsPage() {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
 
   const openLightbox = (mediaList, index) => {
+    if (!mediaList || mediaList.length === 0) return;
     setCurrentProjectMedia(mediaList);
     setActiveMediaIndex(index);
     setLightboxOpen(true);
@@ -107,8 +98,8 @@ export function ProjectsPage() {
       {/* Projects List */}
       <div className="space-y-12">
         {PROJECTS_DATA.map((project) => {
-          const totalMedia = project.media.length;
-          const visibleMedia = project.media.slice(0, 4);
+          const totalMedia = project.media ? project.media.length : 0;
+          const visibleMedia = project.media ? project.media.slice(0, 4) : [];
           const remainingCount = totalMedia - 4;
 
           return (
@@ -118,55 +109,71 @@ export function ProjectsPage() {
                 project.isUpcoming ? "border-dashed border-leaf/40 bg-sage/5" : ""
               }`}
             >
-              {/* Left side: Photo/Video Grid */}
-              <div className="md:col-span-6 grid grid-cols-2 gap-2.5">
-                {visibleMedia.map((item, imgIdx) => {
-                  const isFourthItem = imgIdx === 3 && remainingCount > 0;
-
-                  return (
-                    <div
-                      key={imgIdx}
-                      onClick={() => openLightbox(project.media, imgIdx)}
-                      className={`relative rounded-2xl overflow-hidden bg-black/5 cursor-pointer group ${
-                        totalMedia === 1 ? "col-span-2 aspect-[16/9]" : "aspect-square"
-                      }`}
-                    >
-                      {/* Video vs Image Rendering */}
-                      {item.type === "video" ? (
-                        <div className="w-full h-full relative">
-                          <img
-                            src={item.thumbnail || item.url}
-                            alt={`${project.title} Video - ${imgIdx + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                            <div className="w-10 h-10 rounded-full bg-white/80 text-forest flex items-center justify-center shadow-lg">
-                              <Play size={20} weight="fill" className="ml-0.5" />
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <img
-                          src={item.url}
-                          alt={`${project.title} - ${imgIdx + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      )}
-
-                      {/* "+X More" Overlay for 4th Item */}
-                      {isFourthItem ? (
-                        <div className="absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
-                          <span className="text-xl font-extrabold">+{remainingCount + 1}</span>
-                          <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All</span>
-                        </div>
-                      ) : (
-                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
-                          {item.type === "video" ? "Play Video" : "View Image"}
-                        </div>
-                      )}
+              {/* Left side: Photo/Video Grid OR Coming Soon Box */}
+              <div className="md:col-span-6">
+                {project.isUpcoming ? (
+                  <div className="w-full aspect-[16/9] rounded-2xl bg-forest/5 border border-forest/10 flex flex-col items-center justify-center text-center p-6 space-y-3">
+                    <div className="w-12 h-12 rounded-2xl bg-forest text-leaf flex items-center justify-center shadow-md">
+                      <Clock size={24} weight="bold" />
                     </div>
-                  );
-                })}
+                    <div>
+                      <p className="text-xs font-extrabold text-forest uppercase tracking-widest">
+                        {project.comingSoonText || "COMING SOON"}
+                      </p>
+                      <p className="text-[11px] font-medium text-ink/60 mt-1">
+                        Photos & site execution details will be updated shortly
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {visibleMedia.map((item, imgIdx) => {
+                      const isFourthItem = imgIdx === 3 && remainingCount > 0;
+
+                      return (
+                        <div
+                          key={imgIdx}
+                          onClick={() => openLightbox(project.media, imgIdx)}
+                          className={`relative rounded-2xl overflow-hidden bg-black/5 cursor-pointer group ${
+                            totalMedia === 1 ? "col-span-2 aspect-[16/9]" : "aspect-square"
+                          }`}
+                        >
+                          {item.type === "video" ? (
+                            <div className="w-full h-full relative">
+                              <img
+                                src={item.thumbnail || item.url}
+                                alt={`${project.title} Video - ${imgIdx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-full bg-white/80 text-forest flex items-center justify-center shadow-lg">
+                                  <Play size={20} weight="fill" className="ml-0.5" />
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <img
+                              src={item.url}
+                              alt={`${project.title} - ${imgIdx + 1}`}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          )}
+
+                          {isFourthItem ? (
+                            <div className="absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
+                              <span className="text-xl font-extrabold">+{remainingCount + 1}</span>
+                              <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All</span>
+                            </div>
+                          ) : (
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
+                              {item.type === "video" ? "Play Video" : "View Image"}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Right side: Project Details */}
@@ -232,7 +239,7 @@ export function ProjectsPage() {
             onClick={(e) => e.stopPropagation()} 
             className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center"
           >
-            {currentProjectMedia[activeMediaIndex].type === "video" ? (
+            {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
               <video
                 src={currentProjectMedia[activeMediaIndex].url}
                 controls
@@ -241,7 +248,7 @@ export function ProjectsPage() {
               />
             ) : (
               <img
-                src={currentProjectMedia[activeMediaIndex].url}
+                src={currentProjectMedia[activeMediaIndex]?.url}
                 alt="Project Fullview"
                 className="w-full h-full object-contain max-h-[85vh]"
               />
