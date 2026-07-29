@@ -11,14 +11,14 @@ const PROJECTS_DATA = [
     siteType: "Industrial / Commercial Facility • Central Gujarat",
     description: "Comprehensive garden maintenance and upkeep for Raghav Pulse Processor. Our work focuses on scheduled pruning, turf care, organic soil nourishment, and hedge border trimming to ensure a crisp, welcoming corporate landscape year-round.",
     media: [
-      { type: "image", url: "/projects/project-1/project1-2.jpg", label: "After: Cleaned Boundary" },
-      { type: "image", url: "/projects/project-1/project1-4.jpg", label: "After: Pathway Pruning" },
-      { type: "image", url: "/projects/project-1/project1-6.jpg", label: "After: Restored Turf" },
-      { type: "image", url: "/projects/project-1/project1-8.jpg", label: "After: Shrub Shaping" },
-      { type: "image", url: "/projects/project-1/project1-1.jpg", label: "Before: Overgrown Hedge" },
-      { type: "image", url: "/projects/project-1/project1-3.jpg", label: "Before: Unpruned Perimeter" },
-      { type: "image", url: "/projects/project-1/project1-5.jpg", label: "Before: Patchy Grass" },
-      { type: "image", url: "/projects/project-1/project1-7.jpg", label: "Before: Dense Growth" }
+      { type: "image", url: "/projects/project-1/project1-2.jpg" },
+      { type: "image", url: "/projects/project-1/project1-4.jpg" },
+      { type: "image", url: "/projects/project-1/project1-6.jpg" },
+      { type: "image", url: "/projects/project-1/project1-8.jpg" },
+      { type: "image", url: "/projects/project-1/project1-1.jpg" },
+      { type: "image", url: "/projects/project-1/project1-3.jpg" },
+      { type: "image", url: "/projects/project-1/project1-5.jpg" },
+      { type: "image", url: "/projects/project-1/project1-7.jpg" }
     ]
   },
   {
@@ -28,10 +28,10 @@ const PROJECTS_DATA = [
     siteType: "Commercial Facility Expansion • Gujarat",
     description: "Custom landscape architectural planning and 2D concepts engineered for commercial site development. The layout includes technical plant positioning based on sunlight exposure, automated drip irrigation mapping, hardscape pathways, and low-maintenance native plant selection suited for Central Gujarat climate.",
     media: [
-      { type: "image", url: "/projects/project-2/2d-design-1.jpg", label: },
-      { type: "image", url: "/projects/project-2/2d-design-2.jpg", label: },
-      { type: "image", url: "/projects/project-2/2d-design-3.jpg", label: },
-      { type: "image", url: "/projects/project-2/2d-design-4.jpg", label: }
+      { type: "image", url: "/projects/project-2/2d-design-1.jpg" },
+      { type: "image", url: "/projects/project-2/2d-design-2.jpg" },
+      { type: "image", url: "/projects/project-2/2d-design-3.jpg" },
+      { type: "image", url: "/projects/project-2/2d-design-4.jpg" }
     ]
   },
   {
@@ -258,13 +258,6 @@ export function ProjectsPage() {
                 alt="Project Fullview"
                 className="w-full h-full object-contain max-h-[85vh]"
               />
-            )}
-            
-            {/* Image Caption Label */}
-            {currentProjectMedia[activeMediaIndex]?.label && (
-              <div className="absolute bottom-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold">
-                {currentProjectMedia[activeMediaIndex].label}
-              </div>
             )}
           </div>
 
