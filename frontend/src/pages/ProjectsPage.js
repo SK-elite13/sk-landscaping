@@ -1,45 +1,58 @@
 import React, { useState } from "react";
-import { X, CaretLeft, CaretRight, ArrowRight } from "@phosphor-icons/react";
+import { X, CaretLeft, CaretRight, ArrowRight, Play } from "@phosphor-icons/react";
 
-/* --- Projects Data --- */
+/* --- Projects Data (Supports Photos & Videos) --- */
 const PROJECTS_DATA = [
   {
     id: "raghav-pulse-amc",
     title: "Commercial Facility Garden Upkeep & Maintenance",
-    badge: "COMPLETED & ONGOING AMC",
+    badge: "RESTORATION & MAINTENANCE",
     siteType: "Industrial / Commercial Facility • Central Gujarat",
-    description: "Ongoing comprehensive garden maintenance and AMC for Raghav Pulse Processor. Our work focuses on regular lawn care, scheduled pruning, organic soil nourishment, and pest management across their 1,000 sq. ft. green area to ensure a crisp, welcoming corporate landscape year-round.",
-    images: [
-      "/services/HERO_IMG-1.jpg",
-      "/services/site-dev-1.jpg",
-      "/services/renovation-1.jpg",
-      "/services/tropical-garden-walkway.jpg"
+    description: "Comprehensive garden maintenance and upkeep for Raghav Pulse Processor. Our work focuses on scheduled pruning, turf care, organic soil nourishment, and hedge border trimming to ensure a crisp, welcoming corporate landscape year-round.",
+    media: [
+      { type: "image", url: "/services/HERO_IMG-1.jpg" },
+      { type: "image", url: "/services/site-dev-1.jpg" },
+      { type: "image", url: "/services/renovation-1.jpg" },
+      { type: "image", url: "/services/mini-forest-1.jpg" },
+      { type: "image", url: "/services/orchard-1.jpg" },
+      { type: "image", url: "/services/planters-1.jpg" },
+      { type: "image", url: "/services/terrace-1.png" },
+      { type: "image", url: "/services/vertical-wall-1.jpg" },
+      // Example of adding a video:
+      // { type: "video", url: "/services/mehdi-cutting.mp4", thumbnail: "/services/renovation-1.jpg" }
     ]
   },
   {
     id: "commercial-masterplan-design",
-    title: "2,600 Sq. Ft. Commercial Garden Masterplan",
-    badge: "2D DESIGN & PLANNING",
+    title: "Commercial Garden Masterplan & Architectural Layout",
+    badge: "2D LANDSCAPE DESIGN",
     siteType: "Commercial Facility Expansion • Gujarat",
-    description: "Custom landscape architectural planning designed for a 2,600 sq. ft. commercial garden development. The masterplan includes technical plant positioning based on sunlight exposure, automated drip irrigation layout, hardscape pathways, and low-maintenance native plant selection suited for Central Gujarat climate.",
-    images: [
-      "/services/2d-design-1.jpg",
-      "/services/site-dev-1.jpg",
-      "/services/commercial-landscape-lawn.jpg",
-      "/services/soil-prep-execution.jpg"
+    description: "Custom landscape architectural planning and 2D concepts engineered for commercial site development. The layout includes technical plant positioning based on sunlight exposure, automated drip irrigation mapping, hardscape pathways, and low-maintenance native plant selection suited for Central Gujarat climate.",
+    media: [
+      { type: "image", url: "/services/2d-design-1.jpg" },
+      { type: "image", url: "/services/site-dev-1.jpg" }
     ]
   },
   {
-    id: "perimeter-hedge-shaping",
-    title: "Commercial Perimeter Hedging & Edge Care",
-    badge: "SPECIALIZED CARE",
-    siteType: "Commercial Site • Anand Region",
-    description: "Specialized hedge trimming and geometric border maintenance for commercial property perimeters. Focuses on sharp, clean Mehndi/Duranta border shaping, root zone aeration, and clearing overgrown foliage to maintain neat curb appeal.",
-    images: [
-      "/services/mini-forest-1.jpg",
-      "/services/renovation-1.jpg",
-      "/services/garden-pathway-renovation.jpg",
-      "/services/site-development-prep.jpg"
+    id: "upcoming-industrial-landscape",
+    title: "Industrial Landscape Development",
+    badge: "UPCOMING PROJECT",
+    siteType: "Central Gujarat Region",
+    description: "Upcoming complete site development and landscape transformation for a local industrial manufacturing facility. Scope includes ground leveling, heavy soil enrichment, turf installation, and perimeter tree plantation.",
+    isUpcoming: true,
+    media: [
+      { type: "image", url: "/services/site-dev-1.jpg" }
+    ]
+  },
+  {
+    id: "upcoming-hotel-landscape",
+    title: "Hotel Landscape Development",
+    badge: "UPCOMING PROJECT",
+    siteType: "Central Gujarat Region",
+    description: "Upcoming decorative commercial greening and landscape design concept for a hospitality space. Focuses on premium potted arrangements, feature lawns, and welcoming entrance foliage.",
+    isUpcoming: true,
+    media: [
+      { type: "image", url: "/services/terrace-1.png" }
     ]
   }
 ];
@@ -47,12 +60,12 @@ const PROJECTS_DATA = [
 export function ProjectsPage() {
   // Lightbox Modal State
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentProjectImages, setCurrentProjectImages] = useState([]);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [currentProjectMedia, setCurrentProjectMedia] = useState([]);
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
 
-  const openLightbox = (images, index) => {
-    setCurrentProjectImages(images);
-    setActiveImageIndex(index);
+  const openLightbox = (mediaList, index) => {
+    setCurrentProjectMedia(mediaList);
+    setActiveMediaIndex(index);
     setLightboxOpen(true);
   };
 
@@ -60,14 +73,14 @@ export function ProjectsPage() {
     setLightboxOpen(false);
   };
 
-  const nextImage = (e) => {
+  const nextMedia = (e) => {
     e.stopPropagation();
-    setActiveImageIndex((prev) => (prev + 1) % currentProjectImages.length);
+    setActiveMediaIndex((prev) => (prev + 1) % currentProjectMedia.length);
   };
 
-  const prevImage = (e) => {
+  const prevMedia = (e) => {
     e.stopPropagation();
-    setActiveImageIndex((prev) => (prev - 1 + currentProjectImages.length) % currentProjectImages.length);
+    setActiveMediaIndex((prev) => (prev - 1 + currentProjectMedia.length) % currentProjectMedia.length);
   };
 
   const handleWhatsAppEnquiry = (projectTitle) => {
@@ -87,67 +100,110 @@ export function ProjectsPage() {
           Project Portfolio
         </h1>
         <p className="text-xs sm:text-sm text-ink/70 max-w-2xl leading-relaxed">
-          Explore our real site maintenance executions, 2D landscape planning, and specialized garden developments in Central Gujarat.
+          Explore our real site projects, 2D landscape designs & concepts, and specialized garden developments in Central Gujarat.
         </p>
       </div>
 
       {/* Projects List */}
       <div className="space-y-12">
-        {PROJECTS_DATA.map((project) => (
-          <div 
-            key={project.id}
-            className="bg-white rounded-3xl border border-black/5 shadow-sm overflow-hidden p-6 md:p-8 grid md:grid-cols-12 gap-8 items-center"
-          >
-            {/* Left side: 2x2 Grid of Photos */}
-            <div className="md:col-span-6 grid grid-cols-2 gap-2.5">
-              {project.images.slice(0, 4).map((imgUrl, imgIdx) => (
-                <div
-                  key={imgIdx}
-                  onClick={() => openLightbox(project.images, imgIdx)}
-                  className="relative aspect-square rounded-2xl overflow-hidden bg-black/5 cursor-pointer group"
-                >
-                  <img
-                    src={imgUrl}
-                    alt={`${project.title} - ${imgIdx + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
-                    View
-                  </div>
-                </div>
-              ))}
-            </div>
+        {PROJECTS_DATA.map((project) => {
+          const totalMedia = project.media.length;
+          const visibleMedia = project.media.slice(0, 4);
+          const remainingCount = totalMedia - 4;
 
-            {/* Right side: Project Details */}
-            <div className="md:col-span-6 space-y-4">
-              <div className="space-y-1">
-                <span className="inline-block px-3 py-1 bg-sage/30 text-forest text-[10px] font-extrabold uppercase tracking-wider rounded-full">
-                  {project.badge}
-                </span>
-                <p className="text-xs font-semibold text-leaf uppercase tracking-wider pt-1">
-                  {project.siteType}
-                </p>
-                <h2 className="font-heading text-xl sm:text-2xl font-bold text-ink leading-snug">
-                  {project.title}
-                </h2>
+          return (
+            <div 
+              key={project.id}
+              className={`bg-white rounded-3xl border border-black/5 shadow-sm overflow-hidden p-6 md:p-8 grid md:grid-cols-12 gap-8 items-center ${
+                project.isUpcoming ? "border-dashed border-leaf/40 bg-sage/5" : ""
+              }`}
+            >
+              {/* Left side: Photo/Video Grid */}
+              <div className="md:col-span-6 grid grid-cols-2 gap-2.5">
+                {visibleMedia.map((item, imgIdx) => {
+                  const isFourthItem = imgIdx === 3 && remainingCount > 0;
+
+                  return (
+                    <div
+                      key={imgIdx}
+                      onClick={() => openLightbox(project.media, imgIdx)}
+                      className={`relative rounded-2xl overflow-hidden bg-black/5 cursor-pointer group ${
+                        totalMedia === 1 ? "col-span-2 aspect-[16/9]" : "aspect-square"
+                      }`}
+                    >
+                      {/* Video vs Image Rendering */}
+                      {item.type === "video" ? (
+                        <div className="w-full h-full relative">
+                          <img
+                            src={item.thumbnail || item.url}
+                            alt={`${project.title} Video - ${imgIdx + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-white/80 text-forest flex items-center justify-center shadow-lg">
+                              <Play size={20} weight="fill" className="ml-0.5" />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <img
+                          src={item.url}
+                          alt={`${project.title} - ${imgIdx + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      )}
+
+                      {/* "+X More" Overlay for 4th Item */}
+                      {isFourthItem ? (
+                        <div className="absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
+                          <span className="text-xl font-extrabold">+{remainingCount + 1}</span>
+                          <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All</span>
+                        </div>
+                      ) : (
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
+                          {item.type === "video" ? "Play Video" : "View Image"}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
-              <p className="text-xs sm:text-sm text-ink/70 leading-relaxed">
-                {project.description}
-              </p>
+              {/* Right side: Project Details */}
+              <div className="md:col-span-6 space-y-4">
+                <div className="space-y-1">
+                  <span className={`inline-block px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded-full ${
+                    project.isUpcoming 
+                      ? "bg-leaf/20 text-forest border border-leaf/30" 
+                      : "bg-sage/30 text-forest"
+                  }`}>
+                    {project.badge}
+                  </span>
+                  <p className="text-xs font-semibold text-leaf uppercase tracking-wider pt-1">
+                    {project.siteType}
+                  </p>
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-ink leading-snug">
+                    {project.title}
+                  </h2>
+                </div>
 
-              <button
-                onClick={() => handleWhatsAppEnquiry(project.title)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
-              >
-                Discuss Similar Project <ArrowRight size={16} />
-              </button>
+                <p className="text-xs sm:text-sm text-ink/70 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <button
+                  onClick={() => handleWhatsAppEnquiry(project.title)}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
+                >
+                  Discuss Similar Project <ArrowRight size={16} />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal for Fullscreen Media */}
       {lightboxOpen && (
         <div 
           onClick={closeLightbox}
@@ -162,31 +218,40 @@ export function ProjectsPage() {
           </button>
 
           {/* Left Navigation Arrow */}
-          {currentProjectImages.length > 1 && (
+          {currentProjectMedia.length > 1 && (
             <button
-              onClick={prevImage}
+              onClick={prevMedia}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
             >
               <CaretLeft size={24} weight="bold" />
             </button>
           )}
 
-          {/* Fullscreen Active Image */}
+          {/* Active Media Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl"
+            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center"
           >
-            <img
-              src={currentProjectImages[activeImageIndex]}
-              alt="Project Fullview"
-              className="w-full h-full object-contain max-h-[85vh]"
-            />
+            {currentProjectMedia[activeMediaIndex].type === "video" ? (
+              <video
+                src={currentProjectMedia[activeMediaIndex].url}
+                controls
+                autoPlay
+                className="max-w-full max-h-[85vh] rounded-2xl"
+              />
+            ) : (
+              <img
+                src={currentProjectMedia[activeMediaIndex].url}
+                alt="Project Fullview"
+                className="w-full h-full object-contain max-h-[85vh]"
+              />
+            )}
           </div>
 
           {/* Right Navigation Arrow */}
-          {currentProjectImages.length > 1 && (
+          {currentProjectMedia.length > 1 && (
             <button
-              onClick={nextImage}
+              onClick={nextMedia}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
             >
               <CaretRight size={24} weight="bold" />
