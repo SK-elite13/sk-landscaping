@@ -103,7 +103,7 @@ function ServiceCard({ service, defaultBtnText = "Enquire Now" }) {
 
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-2 flex items-center justify-between w-full py-1.5 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5"
+            className="mt-2 flex items-center justify-between w-full py-1.5 text-xs font-bold text-ink/70 hover:text-forest transition-colors border-t border-black/5 cursor-pointer"
           >
             <span>{isExpanded ? "Hide Details" : "Read Description"}</span>
             <CaretDown
@@ -144,7 +144,7 @@ function ServiceCard({ service, defaultBtnText = "Enquire Now" }) {
 
         <button
           onClick={handleWhatsAppEnquiry}
-          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+          className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
         >
           {defaultBtnText}
         </button>
