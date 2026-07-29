@@ -219,7 +219,7 @@ export function ProjectsPage() {
 
                 <button
                   onClick={() => handleWhatsAppEnquiry(project.title)}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   Discuss Similar Project <ArrowRight size={16} />
                 </button>
@@ -229,7 +229,7 @@ export function ProjectsPage() {
         })}
       </div>
 
-      {/* Lightbox Modal for Fullscreen Media (Cross button removed; click dark backdrop to close) */}
+      {/* Lightbox Modal for Fullscreen Media */}
       {lightboxOpen && (
         <div 
           onClick={closeLightbox}
@@ -265,7 +265,7 @@ export function ProjectsPage() {
               />
             )}
             
-            {/* Image Caption Label (renders for maintenance project photos) */}
+            {/* Image Caption Label */}
             {currentProjectMedia[activeMediaIndex]?.label && (
               <div className="absolute bottom-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold">
                 {currentProjectMedia[activeMediaIndex].label}
