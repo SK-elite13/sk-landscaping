@@ -16,16 +16,77 @@ import {
 } from "@phosphor-icons/react";
 import { CORE_SERVICES } from "../data/servicesData";
 
-/* --- 1. Service Card Item with WhatsApp Direct Link --- */
-function ServiceCardItem({ service }) {
+/* --- Touch & Click Enabled Image Slider --- */
+function ImageSlider({ displayImages, fallbackImage, title }) {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
-  const displayImages = service.images && service.images.length > 0 ? service.images : [service.fallbackImage];
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
+    }
+    if (isRightSwipe) {
+      setActiveImgIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+    }
+
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
 
   const handleNextImage = () => {
     setActiveImgIndex((prev) => (prev + 1) % displayImages.length);
   };
+
+  return (
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onClick={displayImages.length > 1 ? handleNextImage : undefined}
+      className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer select-none touch-pan-y"
+    >
+      <img
+        src={displayImages[activeImgIndex]}
+        alt={title}
+        className="h-full w-full object-cover transition-all duration-300 pointer-events-none"
+        onError={(e) => { e.target.src = fallbackImage; }}
+      />
+      
+      {displayImages.length > 1 && (
+        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
+          {displayImages.map((_, idx) => (
+            <span
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/70 shadow-sm"
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* --- Service Card Item with Direct WhatsApp Link --- */
+function ServiceCardItem({ service }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const displayImages = service.images && service.images.length > 0 ? service.images : [service.fallbackImage];
 
   // WhatsApp Enquiry Action
   const handleWhatsAppEnquiry = () => {
@@ -37,30 +98,11 @@ function ServiceCardItem({ service }) {
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-xl">
-      <div 
-        onClick={displayImages.length > 1 ? handleNextImage : undefined}
-        className="relative h-52 w-full overflow-hidden bg-black/5 cursor-pointer"
-      >
-        <img
-          src={displayImages[activeImgIndex]}
-          alt={service.title}
-          className="h-full w-full object-cover transition-all duration-300"
-          onError={(e) => { e.target.src = service.fallbackImage; }}
-        />
-        
-        {displayImages.length > 1 && (
-          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
-            {displayImages.map((_, idx) => (
-              <span 
-                key={idx} 
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === activeImgIndex ? "w-5 bg-leaf" : "w-1.5 bg-white/70 shadow-sm"
-                }`} 
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <ImageSlider 
+        displayImages={displayImages} 
+        fallbackImage={service.fallbackImage} 
+        title={service.title} 
+      />
 
       <div className="p-4 flex flex-col justify-between flex-1 space-y-3">
         <div>
@@ -98,7 +140,6 @@ function ServiceCardItem({ service }) {
           </div>
         </div>
 
-        {/* Updated Button to Trigger WhatsApp */}
         <button
           onClick={handleWhatsAppEnquiry}
           className="w-full py-2.5 bg-forest hover:bg-leaf text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
@@ -110,7 +151,7 @@ function ServiceCardItem({ service }) {
   );
 }
 
-/* --- 2. Main Home Page Component --- */
+/* --- Main Home Page Component --- */
 export function Home() {
   const HERO_IMG = "/services/HERO_IMG-1.jpg";
 
@@ -289,32 +330,32 @@ export function Home() {
         </div>
       </section>
 
-{/* About Us Highlight Banner */}
-<section className="max-w-7xl mx-auto px-5 md:px-8">
-  <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
-    <div className="space-y-4">
-      <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
-      <h2 className="font-heading text-3xl md:text-4xl font-black">
-        Landscapes Designed to Last
-      </h2>
-      <p className="text-xs md:text-sm text-white/80 leading-relaxed">
-        At SK Landscaping, we believe great landscapes are created through thoughtful planning, suitable plant selection, and reliable maintenance. Based in Anand, we provide landscape design, development, plantation, and long term garden care for residential, commercial, and industrial properties across Central Gujarat.
-      </p>
-      <div className="pt-2">
-        <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
-          Learn More About Us <ArrowRight size={16} />
-        </Link>
-      </div>
-    </div>
-    <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 aspect-video shadow-md">
-      <img 
-        src="/services/landscape-1.jpg" 
-        alt="SK Landscaping Work" 
-        className="w-full h-full object-cover" 
-      />
-    </div>
-  </div>
-</section>
+      {/* About Us Highlight Banner */}
+      <section className="max-w-7xl mx-auto px-5 md:px-8">
+        <div className="rounded-3xl bg-forest p-8 md:p-12 text-white shadow-xl grid md:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-leaf">ABOUT SK LANDSCAPING</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-black">
+              Landscapes Designed to Last
+            </h2>
+            <p className="text-xs md:text-sm text-white/80 leading-relaxed">
+              At SK Landscaping, we believe great landscapes are created through thoughtful planning, suitable plant selection, and reliable maintenance. Based in Anand, we provide landscape design, development, plantation, and long term garden care for residential, commercial, and industrial properties across Central Gujarat.
+            </p>
+            <div className="pt-2">
+              <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-forest hover:bg-sand text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
+                Learn More About Us <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-white/20 aspect-video shadow-md">
+            <img 
+              src="/services/landscape-1.jpg" 
+              alt="SK Landscaping Work" 
+              className="w-full h-full object-cover" 
+            />
+          </div>
+        </div>
+      </section>
 
       {/* FAQ Section */}
       <section className="max-w-4xl mx-auto px-5 md:px-8">
