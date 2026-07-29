@@ -5,23 +5,23 @@ export const LeadForm = ({ defaultService = "" }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
-    propertyType: "Residential",
-    service: defaultService,
+    propertyType: "Residential / Home",
+    service: defaultService || "Turnkey Project",
+    address: "",
     notes: ""
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Fallback function to open WhatsApp with pre-filled lead details
+  // Bulletproof WhatsApp fallback
   const sendToWhatsApp = () => {
     const message = 
       `*New Site Visit Request - SK Landscaping*\n\n` +
       `👤 *Name:* ${formData.name}\n` +
       `📞 *Phone:* ${formData.phone}\n` +
-      `📧 *Email:* ${formData.email || "N/A"}\n` +
       `🏠 *Property:* ${formData.propertyType}\n` +
-      `🛠 *Service:* ${formData.service || "General Inquiry"}\n` +
+      `🛠 *Service:* ${formData.service}\n` +
+      `📍 *Location/Address:* ${formData.address || "N/A"}\n` +
       `📝 *Notes:* ${formData.notes || "None"}`;
 
     const encodedMsg = encodeURIComponent(message);
@@ -34,11 +34,9 @@ export const LeadForm = ({ defaultService = "" }) => {
     setLoading(true);
 
     try {
-      // Try submitting to API backend first
       await submitLead(formData);
       setSuccess(true);
     } catch (err) {
-      // If API fails, seamlessly send to WhatsApp as a bulletproof fallback
       sendToWhatsApp();
       setSuccess(true);
     } finally {
@@ -48,10 +46,10 @@ export const LeadForm = ({ defaultService = "" }) => {
 
   if (success) {
     return (
-      <div className="rounded-xl bg-sage/40 p-6 text-center space-y-2">
+      <div className="rounded-2xl bg-sage/40 p-6 text-center space-y-2 border border-leaf/20">
         <h3 className="font-heading text-xl font-bold text-forest">Thank you!</h3>
-        <p className="text-sm text-ink/80">
-          We have received your request and will contact you shortly.
+        <p className="text-xs text-ink/80 leading-relaxed">
+          We have received your site visit request and will contact you shortly.
         </p>
       </div>
     );
@@ -59,62 +57,117 @@ export const LeadForm = ({ defaultService = "" }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Name & Phone */}
       <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+            Full Name *
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="e.g. Ketan Patel"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+            Phone Number *
+          </label>
+          <input
+            type="tel"
+            required
+            placeholder="e.g. 98765 43210"
+            value={formData.phone}
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none"
+          />
+        </div>
+      </div>
+
+      {/* Property Type & Service */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+            Property Type *
+          </label>
+          <select
+            value={formData.propertyType}
+            onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
+            className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none text-ink/80"
+          >
+            <option value="Residential / Home">Residential / Home</option>
+            <option value="Farmhouse / Villa">Farmhouse / Villa</option>
+            <option value="Commercial / Office">Commercial / Office</option>
+            <option value="Industrial Site">Industrial Site</option>
+            <option value="Housing Society">Housing Society</option>
+            <option value="Institute / Campus">Institute / Campus</option>
+            <option value="Hotel / Cafe">Hotel / Cafe</option>
+            <option value="Resort, Party Plot & Event Venue">Resort, Party Plot & Event Venue</option>
+            <option value="Government Project">Government Project</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+            Service Required *
+          </label>
+          <select
+            value={formData.service}
+            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+            className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none text-ink/80"
+          >
+            <option value="Turnkey Project">Turnkey Project (Design to Execution)</option>
+            <option value="Execution & Development">Execution & Development</option>
+            <option value="Maintenance & Care (AMC)">Maintenance & Care (AMC)</option>
+            <option value="Garden Renovation">Garden Renovation</option>
+            <option value="Lawn Development">Lawn Development</option>
+            <option value="Vertical Wall">Vertical Wall</option>
+            <option value="Indoor / Balcony / Terrace">Indoor, Balcony & Terrace Garden</option>
+            <option value="Kitchen Garden">Kitchen Garden</option>
+            <option value="Orchard & Plantation">Orchard & Tree Plantation</option>
+            <option value="Other Inquiry">Other Inquiry</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Site Address / Location */}
+      <div>
+        <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+          Site Address / Location *
+        </label>
         <input
           type="text"
           required
-          placeholder="Full name *"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
-        />
-        <input
-          type="tel"
-          required
-          placeholder="Phone number *"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
+          placeholder="e.g. Near Borsad Chokdi, Anand (Landmark / Area / City)"
+          value={formData.address}
+          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none"
         />
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <input
-          type="email"
-          placeholder="Email (optional)"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
+
+      {/* Project Notes */}
+      <div>
+        <label className="block text-[11px] font-bold uppercase tracking-wider text-ink/70 mb-1">
+          Project Notes (Optional)
+        </label>
+        <textarea
+          rows={3}
+          placeholder="Tell us about plot size, preferred time for visit, or special requirements..."
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-xs font-medium focus:border-forest focus:outline-none"
         />
-        <select
-          value={formData.propertyType}
-          onChange={(e) => setFormData({ ...formData, propertyType: e.target.value })}
-          className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
-        >
-          <option value="Residential">Residential / Home</option>
-          <option value="Commercial">Commercial / Office</option>
-          <option value="Industrial">Industrial Site</option>
-          <option value="Farmhouse">Farmhouse / Villa</option>
-          <option value="Society">Housing Society</option>
-        </select>
       </div>
-      <input
-        type="text"
-        placeholder="Service you're interested in"
-        value={formData.service}
-        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-        className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
-      />
-      <textarea
-        rows={3}
-        placeholder="Tell us about your space (optional)"
-        value={formData.notes}
-        onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-        className="w-full rounded-xl border border-black/10 bg-cream/50 px-4 py-3 text-sm font-medium focus:border-forest focus:outline-none"
-      />
+
+      {/* Submit Button */}
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-forest py-4 text-sm font-bold text-white transition-transform duration-200 hover:scale-[1.02] active:scale-95 disabled:opacity-50 cursor-pointer"
+        className="w-full rounded-xl bg-forest py-4 text-xs font-bold uppercase tracking-wider text-white transition-transform duration-200 hover:bg-leaf active:scale-95 disabled:opacity-50 cursor-pointer shadow-md"
       >
         {loading ? "Submitting..." : "➤ Request Free Site Visit"}
       </button>
