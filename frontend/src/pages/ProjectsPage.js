@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { X, CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
+import { CONTACT, waLink } from "../lib/api";
 
 /* --- Projects Data --- */
 const PROJECTS_DATA = [
@@ -10,10 +11,14 @@ const PROJECTS_DATA = [
     siteType: "Industrial / Commercial Facility • Central Gujarat",
     description: "Comprehensive garden maintenance and upkeep for Raghav Pulse Processor. Our work focuses on scheduled pruning, turf care, organic soil nourishment, and hedge border trimming to ensure a crisp, welcoming corporate landscape year-round.",
     media: [
-      { type: "image", url: "/services/HERO_IMG-1.jpg" },
-      { type: "image", url: "/services/site-dev-1.jpg" },
-      { type: "image", url: "/services/renovation-1.jpg" },
-      { type: "image", url: "/services/mini-forest-1.jpg" }
+      { type: "image", url: "/projects/project-1/project1-2.jpg", label: "After: Cleaned Boundary" },
+      { type: "image", url: "/projects/project-1/project1-4.jpg", label: "After: Pathway Pruning" },
+      { type: "image", url: "/projects/project-1/project1-6.jpg", label: "After: Restored Turf" },
+      { type: "image", url: "/projects/project-1/project1-8.jpg", label: "After: Shrub Shaping" },
+      { type: "image", url: "/projects/project-1/project1-1.jpg", label: "Before: Overgrown Hedge" },
+      { type: "image", url: "/projects/project-1/project1-3.jpg", label: "Before: Unpruned Perimeter" },
+      { type: "image", url: "/projects/project-1/project1-5.jpg", label: "Before: Patchy Grass" },
+      { type: "image", url: "/projects/project-1/project1-7.jpg", label: "Before: Dense Growth" }
     ]
   },
   {
@@ -23,8 +28,10 @@ const PROJECTS_DATA = [
     siteType: "Commercial Facility Expansion • Gujarat",
     description: "Custom landscape architectural planning and 2D concepts engineered for commercial site development. The layout includes technical plant positioning based on sunlight exposure, automated drip irrigation mapping, hardscape pathways, and low-maintenance native plant selection suited for Central Gujarat climate.",
     media: [
-      { type: "image", url: "/services/2d-design-1.jpg" },
-      { type: "image", url: "/services/site-dev-1.jpg" }
+      { type: "image", url: "/projects/project-2/2d-design-1.jpg", label: "2D Masterplan Concept 1" },
+      { type: "image", url: "/projects/project-2/2d-design-2.jpg", label: "2D Masterplan Concept 2" },
+      { type: "image", url: "/projects/project-2/2d-design-3.jpg", label: "Plant Positioning & Zones" },
+      { type: "image", url: "/projects/project-2/2d-design-4.jpg", label: "Hardscape & Layout Detail" }
     ]
   },
   {
@@ -75,9 +82,8 @@ export function ProjectsPage() {
   };
 
   const handleWhatsAppEnquiry = (projectTitle) => {
-    const phoneNumber = "919313082732";
-    const message = `Hi SK Landscaping! I saw your project: *${projectTitle}*. I would like to discuss a similar project for my property.`;
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    const msg = `Hi SK Landscaping! I saw your project: *${projectTitle}*. I would like to discuss a similar project for my property.`;
+    window.open(waLink(msg), "_blank");
   };
 
   return (
@@ -162,11 +168,11 @@ export function ProjectsPage() {
                           {isFourthItem ? (
                             <div className="absolute inset-0 bg-black/75 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all group-hover:bg-black/85">
                               <span className="text-xl font-extrabold">+{remainingCount + 1}</span>
-                              <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All</span>
+                              <span className="text-[10px] uppercase font-bold tracking-wider text-leaf">View All ({totalMedia})</span>
                             </div>
                           ) : (
                             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold">
-                              {item.type === "video" ? "Play Video" : "View Image"}
+                              {item.type === "video" ? "Play Video" : "View Photo"}
                             </div>
                           )}
                         </div>
@@ -237,7 +243,7 @@ export function ProjectsPage() {
           {/* Active Media Container */}
           <div 
             onClick={(e) => e.stopPropagation()} 
-            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center"
+            className="max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl shadow-2xl flex flex-col items-center justify-center relative"
           >
             {currentProjectMedia[activeMediaIndex]?.type === "video" ? (
               <video
@@ -252,6 +258,13 @@ export function ProjectsPage() {
                 alt="Project Fullview"
                 className="w-full h-full object-contain max-h-[85vh]"
               />
+            )}
+            
+            {/* Image Caption Label */}
+            {currentProjectMedia[activeMediaIndex]?.label && (
+              <div className="absolute bottom-4 bg-black/75 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-semibold">
+                {currentProjectMedia[activeMediaIndex].label}
+              </div>
             )}
           </div>
 
@@ -280,7 +293,7 @@ export function ProjectsPage() {
           <button 
             onClick={() => {
               const msg = "Hi SK Landscaping! I would like to schedule a free site visit for my property.";
-              window.open(`https://wa.me/919313082732?text=${encodeURIComponent(msg)}`, "_blank");
+              window.open(waLink(msg), "_blank");
             }}
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-forest hover:bg-sand font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
           >
