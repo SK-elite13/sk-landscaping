@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { X, CaretLeft, CaretRight, ArrowRight, Play, Clock } from "@phosphor-icons/react";
-import { CONTACT, waLink } from "../lib/api";
+import { waLink } from "../lib/api";
 
 /* --- Projects Data --- */
 const PROJECTS_DATA = [
@@ -65,30 +65,29 @@ export function ProjectsPage() {
     setCurrentProjectMedia(mediaList);
     setActiveMediaIndex(index);
     setLightboxOpen(true);
-    
-    // Push state into browser history so mobile back button closes modal
+
+    // Push browser state so hardware back button can be intercepted
     window.history.pushState({ lightbox: true }, "");
   };
 
-  const closeLightbox = useCallback(() => {
-    setLightboxOpen(false);
-    // If browser state was pushed for lightbox, go back to clear it
+  // Close lightbox through browser history step to maintain state sync
+  const closeLightbox = () => {
     if (window.history.state?.lightbox) {
       window.history.back();
+    } else {
+      setLightboxOpen(false);
     }
-  }, []);
+  };
 
-  // Listen for Browser / Mobile Back Button Press
+  // Listen for mobile back button / browser back gesture
   useEffect(() => {
     const handlePopState = () => {
-      if (lightboxOpen) {
-        setLightboxOpen(false);
-      }
+      setLightboxOpen(false);
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [lightboxOpen]);
+  }, []);
 
   const nextMedia = (e) => {
     e.stopPropagation();
@@ -244,7 +243,7 @@ export function ProjectsPage() {
           {/* Close Button */}
           <button 
             onClick={closeLightbox}
-            className="absolute top-5 right-5 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute top-5 right-5 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
             <X size={24} weight="bold" />
           </button>
@@ -253,7 +252,7 @@ export function ProjectsPage() {
           {currentProjectMedia.length > 1 && (
             <button
               onClick={prevMedia}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
             >
               <CaretLeft size={24} weight="bold" />
             </button>
@@ -284,7 +283,7 @@ export function ProjectsPage() {
           {currentProjectMedia.length > 1 && (
             <button
               onClick={nextMedia}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
             >
               <CaretRight size={24} weight="bold" />
             </button>
@@ -307,7 +306,7 @@ export function ProjectsPage() {
               const msg = "Hi SK Landscaping! I would like to schedule a free site visit for my property.";
               window.open(waLink(msg), "_blank");
             }}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-forest hover:bg-sand font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-forest hover:bg-sand font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg active:scale-95 cursor-pointer"
           >
             Book Free Site Visit <ArrowRight size={16} />
           </button>
